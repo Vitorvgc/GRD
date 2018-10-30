@@ -5,12 +5,14 @@ import java.util.Map;
 
 public class Resource {
 
+    private String name;
     private Model model;
     private int section;
     private Map<String, Object> data;
     private List<Ocurrence> ocurrences;
 
-    public Resource(Model model, int section, Map<String, Object> data) {
+    public Resource(String name, Model model, int section, Map<String, Object> data) {
+        this.name = name;
         this.model = model;
         this.section = section;
         this.data = data;
@@ -18,6 +20,10 @@ public class Resource {
 
     public void addOcurrence(Ocurrence ocurrence) {
         this.ocurrences.add(ocurrence);
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public Model getModel() {
