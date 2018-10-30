@@ -4,7 +4,7 @@ public class Ocurrence {
 
     private String title;
 
-    Ocurrence(String title) {
+    public Ocurrence(String title) {
         this.title = title;
     }
 

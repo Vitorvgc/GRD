@@ -9,7 +9,7 @@ public class Model {
     private Map<String, Class> parameters;
     private List<Ocurrence> ocurrences;
 
-    Model(String name, Map<String, Class> parameters, List<Ocurrence> ocurrences) {
+    public Model(String name, Map<String, Class> parameters, List<Ocurrence> ocurrences) {
         this.name = name;
         this.parameters = parameters;
         this.ocurrences = ocurrences;
