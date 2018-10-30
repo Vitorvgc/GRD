@@ -7,16 +7,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ResourcesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ResourcesController">
    <children>
-      <Label layoutX="25.0" layoutY="13.0" text="Resources List" textFill="#545252">
+      <Label layoutX="26.0" layoutY="13.0" text="Resources List" textFill="#545252">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Button layoutX="25.0" layoutY="57.0" mnemonicParsing="false" onAction="#addResource" text="Add resource" />
-      <TableView fx:id="resourcesTable" layoutX="25.0" layoutY="104.0" prefHeight="282.0" prefWidth="550.0">
+      <Button layoutX="26.0" layoutY="57.0" mnemonicParsing="false" onAction="#addResource" text="Add resource" />
+      <TableView fx:id="resourcesTable" layoutX="26.0" layoutY="102.0" prefHeight="282.0" prefWidth="597.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Resource" />
           <TableColumn prefWidth="137.0" text="Model" />
