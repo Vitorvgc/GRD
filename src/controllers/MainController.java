@@ -1,6 +1,7 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -85,6 +86,13 @@ public class MainController {
     private void onResourceTabClicked() {
         setButtonsToNormalState();
         highlight(resourceButton, resourceLabel, resourceIcon, names[0]);
+
+        try {
+            Pane pane = FXMLLoader.load(getClass().getResource("../views/resources.fxml"));
+            contentPane.getChildren().setAll(pane);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
