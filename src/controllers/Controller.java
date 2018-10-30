@@ -1,4 +1,4 @@
-package main;
+package controllers;
 
 public class Controller {
 }
