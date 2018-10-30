@@ -18,14 +18,14 @@
       <AnchorPane fx:id="contentPane" layoutX="152.0" layoutY="33.0" prefHeight="417.0" prefWidth="648.0" style="-fx-background-color: white;" />
       <VBox alignment="CENTER" layoutY="144.0" prefHeight="306.0" prefWidth="152.0" spacing="1.0" style="-fx-background-color: black;">
          <children>
-            <HBox fx:id="resourceButton" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+            <HBox fx:id="resourceButton" alignment="CENTER_LEFT" onMouseClicked="#onResourceTabClicked" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
                <children>
                   <ImageView fx:id="resourceIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons/resources_light.png" />
                      </image>
                   </ImageView>
-                  <Label text="Recursos" textFill="#d5d5d5">
+                  <Label fx:id="resourceLabel" text="Recursos" textFill="#d5d5d5">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
@@ -35,7 +35,7 @@
                   <Insets left="15.0" />
                </padding>
             </HBox>
-            <HBox fx:id="modelButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="138.0" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+            <HBox fx:id="modelButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="138.0" onMouseClicked="#onModelTabClicked" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
                <children>
                   <ImageView fx:id="modelIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -52,7 +52,7 @@
                   <Insets left="15.0" />
                </padding>
             </HBox>
-            <HBox fx:id="mprButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="164.0" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+            <HBox fx:id="mprButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="164.0" onMouseClicked="#onMPRTabClicked" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
                <children>
                   <ImageView fx:id="mprIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -69,7 +69,7 @@
                   <Insets left="15.0" />
                </padding>
             </HBox>
-            <HBox fx:id="reportButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="190.0" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+            <HBox fx:id="reportButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="190.0" onMouseClicked="#onReportTabClicked" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
                <children>
                   <ImageView fx:id="reportIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -86,7 +86,7 @@
                   <Insets left="15.0" />
                </padding>
             </HBox>
-            <HBox fx:id="registerButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="216.0" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+            <HBox fx:id="registerButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="216.0" onMouseClicked="#onRegisterTabClicked" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
                <children>
                   <ImageView fx:id="registerIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -103,7 +103,7 @@
                   <Insets left="15.0" />
                </padding>
             </HBox>
-            <HBox fx:id="exitButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="242.0" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+            <HBox fx:id="exitButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="242.0" onMouseClicked="#onExitTabClicked" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
                <children>
                   <ImageView fx:id="exitIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
