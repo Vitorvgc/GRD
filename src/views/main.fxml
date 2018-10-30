@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: #3D4B5E;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="121.0" fitWidth="72.0" layoutX="39.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logo.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="contentPane" layoutX="152.0" layoutY="33.0" prefHeight="417.0" prefWidth="648.0" style="-fx-background-color: white;" />
+      <VBox alignment="CENTER" layoutY="144.0" prefHeight="306.0" prefWidth="152.0" spacing="1.0" style="-fx-background-color: black;">
+         <children>
+            <HBox fx:id="resourceButton" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+               <children>
+                  <ImageView fx:id="resourceIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons/resources_light.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Recursos" textFill="#d5d5d5">
+                     <font>
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="modelButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="138.0" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+               <children>
+                  <ImageView fx:id="modelIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons/models_light.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="modelLabel" text="Modelos" textFill="#d5d5d5">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="mprButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="164.0" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+               <children>
+                  <ImageView fx:id="mprIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons/mpr_light.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="mprLabel" text="MPR" textFill="#d5d5d5">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="reportButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="190.0" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+               <children>
+                  <ImageView fx:id="reportIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons/reports_light.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="reportLabel" text="Relatórios" textFill="#d5d5d5">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="registerButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="216.0" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+               <children>
+                  <ImageView fx:id="registerIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons/register_light.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="registerLabel" text="Cadastro" textFill="#d5d5d5">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="exitButton" alignment="CENTER_LEFT" layoutX="10.0" layoutY="242.0" prefHeight="50.0" prefWidth="152.0" spacing="13.0" style="-fx-background-color: #3D4B5E;">
+               <children>
+                  <ImageView fx:id="exitIcon" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons/exit_light.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="exitLabel" text="Sair" textFill="#d5d5d5">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="1.0" top="1.0" />
+         </padding>
+      </VBox>
+      <HBox fx:id="perfilButton" alignment="CENTER" layoutX="157.0" layoutY="6.0" spacing="10.0">
+         <children>
+            <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="157.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons/perfil.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="189.0" layoutY="6.0" prefHeight="20.0" prefWidth="40.0" text="Perfil" textAlignment="CENTER" textFill="#d5d5d5">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
