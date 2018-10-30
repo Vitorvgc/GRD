@@ -1,5 +1,6 @@
 package models.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ public class Resource {
         this.model = model;
         this.section = section;
         this.data = data;
+        this.ocurrences = new ArrayList<>();
     }
 
     public void addOcurrence(Ocurrence ocurrence) {
