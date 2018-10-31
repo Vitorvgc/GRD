@@ -10,18 +10,18 @@ public class Resource {
     private Model model;
     private int section;
     private Map<String, Object> data;
-    private List<Ocurrence> ocurrences;
+    private List<Occurrence> occurrences;
 
     public Resource(String name, Model model, int section, Map<String, Object> data) {
         this.name = name;
         this.model = model;
         this.section = section;
         this.data = data;
-        this.ocurrences = new ArrayList<>();
+        this.occurrences = new ArrayList<>();
     }
 
-    public void addOcurrence(Ocurrence ocurrence) {
-        this.ocurrences.add(ocurrence);
+    public void addOccurrence(Occurrence occurrence) {
+        this.occurrences.add(occurrence);
     }
 
     public String getName() {
@@ -38,8 +38,8 @@ public class Resource {
         return this.data;
     }
 
-    public List<Ocurrence> getOcurrences() {
-        return this.ocurrences;
+    public List<Occurrence> getOccurrences() {
+        return this.occurrences;
     }
 
 }

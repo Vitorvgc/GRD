@@ -62,12 +62,12 @@ public class ResourcesController {
         TableColumn<Resource, String> nameColumn = (TableColumn) resourcesTable.getColumns().get(0);
         TableColumn<Resource, String> modelColumn = (TableColumn) resourcesTable.getColumns().get(1);
         TableColumn<Resource, String> sectionColumn = (TableColumn) resourcesTable.getColumns().get(2);
-        TableColumn<Resource, String> ocurrencesColumn = (TableColumn) resourcesTable.getColumns().get(3);
+        TableColumn<Resource, String> occurrencesColumn = (TableColumn) resourcesTable.getColumns().get(3);
 
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         modelColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModel().getName()));
         sectionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getSection())));
-        ocurrencesColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getOcurrences().size())));
+        occurrencesColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getOccurrences().size())));
 
         // double click event on row -> show clicked resource
         resourcesTable.setRowFactory(tableView -> {

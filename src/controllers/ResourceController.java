@@ -28,10 +28,10 @@ public class ResourceController {
 
     @FXML
     private ToggleButton informationToggleButton,
-                         ocurrencesToggleButton;
+                         occurrencesToggleButton;
 
     @FXML
-    private ListView<String> ocurrencesList;
+    private ListView<String> occurrencesList;
 
     @FXML
     private TableView< Map.Entry<String, Object> > informationTable;
@@ -92,11 +92,11 @@ public class ResourceController {
                 oldValue.setSelected(true);
             else if(informationToggleButton.isSelected()) {
                 informationTable.setVisible(true);
-                ocurrencesList.setVisible(false);
+                occurrencesList.setVisible(false);
             }
-            else if(ocurrencesToggleButton.isSelected()) {
+            else if(occurrencesToggleButton.isSelected()) {
                 informationTable.setVisible(false);
-                ocurrencesList.setVisible(true);
+                occurrencesList.setVisible(true);
             }
         });
     }
@@ -115,12 +115,12 @@ public class ResourceController {
 
     private void setupOcurrencesList() {
 
-        ocurrencesList.setPlaceholder(new Label("Nenhuma ocorrência registrada"));
+        occurrencesList.setPlaceholder(new Label("Nenhuma ocorrência registrada"));
 
-        List<String> ocurrences = resource.getOcurrences().stream()
-                .map(ocurrence -> ocurrence.getType().getTitle())
+        List<String> occurrences = resource.getOccurrences().stream()
+                .map(occurrence -> occurrence.getType().getTitle())
                 .collect(Collectors.toList());
 
-        ocurrencesList.setItems(FXCollections.observableArrayList(new ArrayList<String>(ocurrences)));
+        occurrencesList.setItems(FXCollections.observableArrayList(new ArrayList<String>(occurrences)));
     }
 }

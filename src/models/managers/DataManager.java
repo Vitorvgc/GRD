@@ -3,8 +3,8 @@ package models.managers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.resource.Model;
-import models.resource.Ocurrence;
-import models.resource.OcurrenceType;
+import models.resource.OccurrenceType;
+import models.resource.Occurrence;
 import models.resource.Resource;
 
 import java.util.*;
@@ -38,12 +38,12 @@ public class DataManager {
         params1.put("Turno", String.class);
         params1.put("Salário", String.class);
 
-        List<OcurrenceType> ocurrences1 = new ArrayList<>();
-        ocurrences1.add(new OcurrenceType("Atraso"));
-        ocurrences1.add(new OcurrenceType("Falta"));
-        ocurrences1.add(new OcurrenceType("Acidente"));
+        List<OccurrenceType> occurrences1 = new ArrayList<>();
+        occurrences1.add(new OccurrenceType("Atraso"));
+        occurrences1.add(new OccurrenceType("Falta"));
+        occurrences1.add(new OccurrenceType("Acidente"));
 
-        Model model1 = new Model("Funcionário", params1, ocurrences1);
+        Model model1 = new Model("Funcionário", params1, occurrences1);
 
         models.add(model1);
 
@@ -53,11 +53,11 @@ public class DataManager {
         params2.put("Nome", String.class);
         params2.put("Setor", int.class);
 
-        List<OcurrenceType> ocurrences2 = new ArrayList<>();
-        ocurrences2.add(new OcurrenceType("Mal funcionamento"));
-        ocurrences2.add(new OcurrenceType("Defeito"));
+        List<OccurrenceType> occurrences2 = new ArrayList<>();
+        occurrences2.add(new OccurrenceType("Mal funcionamento"));
+        occurrences2.add(new OccurrenceType("Defeito"));
 
-        Model model2 = new Model("Máquina", params2, ocurrences2);
+        Model model2 = new Model("Máquina", params2, occurrences2);
 
         models.add(model2);
 
@@ -98,20 +98,20 @@ public class DataManager {
         resources.add(new Resource("Máquina 1", model2, 1, values4));
         resources.add(new Resource("Máquina 2", model2, 2, values5));
 
-        // Ocurrences
+        // Occurrences
 
-        resources.get(0).addOcurrence(new Ocurrence(new OcurrenceType("Falta"), new Date(), ""));
-        resources.get(0).addOcurrence(new Ocurrence(new OcurrenceType("Atraso"), new Date(), "30 minutos de atraso"));
-        resources.get(0).addOcurrence(new Ocurrence(new OcurrenceType("Acidente"), new Date(), ""));
+        resources.get(0).addOccurrence(new Occurrence(new OccurrenceType("Falta"), new Date(), ""));
+        resources.get(0).addOccurrence(new Occurrence(new OccurrenceType("Atraso"), new Date(), "30 minutos de atraso"));
+        resources.get(0).addOccurrence(new Occurrence(new OccurrenceType("Acidente"), new Date(), ""));
 
-        resources.get(1).addOcurrence(new Ocurrence(new OcurrenceType("Atraso"), new Date(), ""));
-        resources.get(1).addOcurrence(new Ocurrence(new OcurrenceType("Atraso"), new Date(), ""));
+        resources.get(1).addOccurrence(new Occurrence(new OccurrenceType("Atraso"), new Date(), ""));
+        resources.get(1).addOccurrence(new Occurrence(new OccurrenceType("Atraso"), new Date(), ""));
 
-        resources.get(2).addOcurrence(new Ocurrence(new OcurrenceType("Acidente"), new Date(), "Choque elétrico"));
-        resources.get(2).addOcurrence(new Ocurrence(new OcurrenceType("Acidente"), new Date(), "Cortes profundos no braço direito"));
-        resources.get(2).addOcurrence(new Ocurrence(new OcurrenceType("Acidente"), new Date(), "Fratura da clavícula"));
-        resources.get(2).addOcurrence(new Ocurrence(new OcurrenceType("Acidente"), new Date(), "Queimadura de terceiro grau"));
-        resources.get(2).addOcurrence(new Ocurrence(new OcurrenceType("Falta"), new Date(), ""));
+        resources.get(2).addOccurrence(new Occurrence(new OccurrenceType("Acidente"), new Date(), "Choque elétrico"));
+        resources.get(2).addOccurrence(new Occurrence(new OccurrenceType("Acidente"), new Date(), "Cortes profundos no braço direito"));
+        resources.get(2).addOccurrence(new Occurrence(new OccurrenceType("Acidente"), new Date(), "Fratura da clavícula"));
+        resources.get(2).addOccurrence(new Occurrence(new OccurrenceType("Acidente"), new Date(), "Queimadura de terceiro grau"));
+        resources.get(2).addOccurrence(new Occurrence(new OccurrenceType("Falta"), new Date(), ""));
     }
 
     public ObservableList<Resource> getResources() {
