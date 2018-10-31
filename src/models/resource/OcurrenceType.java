@@ -1,10 +1,10 @@
 package models.resource;
 
-public class Ocurrence {
+public class OcurrenceType {
 
     private String title;
 
-    public Ocurrence(String title) {
+    public OcurrenceType(String title) {
         this.title = title;
     }
 
