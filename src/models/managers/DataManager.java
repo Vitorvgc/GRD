@@ -29,23 +29,74 @@ public class DataManager {
     // Hardcoded data for test purposes
     private void setupData() {
 
-        Map<String, Class> params = new HashMap<>();
-        params.put("Name", String.class);
-        params.put("Age", int.class);
+        // Funcionário model
 
-        List<Ocurrence> ocurrences = new ArrayList<>();
-        ocurrences.add(new Ocurrence("Dead"));
+        Map<String, Class> params1 = new HashMap<>();
+        params1.put("Nome", String.class);
+        params1.put("Idade", int.class);
+        params1.put("Setor", int.class);
+        params1.put("Turno", String.class);
+        params1.put("Salário", String.class);
 
-        Model model = new Model("User", params, ocurrences);
-        models.add(model);
+        List<Ocurrence> ocurrences1 = new ArrayList<>();
+        ocurrences1.add(new Ocurrence("Atraso"));
+        ocurrences1.add(new Ocurrence("Falta"));
+        ocurrences1.add(new Ocurrence("Acidente"));
 
-        Map<String, Object> values = new HashMap<>();
-        values.put("Name", "user");
-        values.put("Age", 21);
+        Model model1 = new Model("Funcionário", params1, ocurrences1);
 
-        resources.add(new Resource("User 1", model, 1, values));
-        resources.add(new Resource("User 2", model, 1, values));
-        resources.add(new Resource("User 3", model, 1, values));
+        models.add(model1);
+
+        // Máquina model
+
+        Map<String, Class> params2 = new HashMap<>();
+        params2.put("Nome", String.class);
+        params2.put("Setor", int.class);
+
+        List<Ocurrence> ocurrences2 = new ArrayList<>();
+        ocurrences2.add(new Ocurrence("Mal funcionamento"));
+        ocurrences2.add(new Ocurrence("Defeito"));
+
+        Model model2 = new Model("Máquina", params2, ocurrences2);
+
+        models.add(model2);
+
+        // Resources
+
+        Map<String, Object> values1 = new HashMap<>();
+        values1.put("Nome", "João");
+        values1.put("Idade", 23);
+        values1.put("Setor", 2);
+        values1.put("Turno", "Manhã");
+        values1.put("Salário", "R$ 2500,00");
+
+        Map<String, Object> values2 = new HashMap<>();
+        values2.put("Nome", "Maria");
+        values2.put("Idade", 22);
+        values2.put("Setor", 3);
+        values2.put("Turno", "Tarde");
+        values2.put("Salário", "R$ 2700,00");
+
+        Map<String, Object> values3 = new HashMap<>();
+        values3.put("Nome", "José");
+        values3.put("Idade", 21);
+        values3.put("Setor", 1);
+        values3.put("Turno", "Manhã");
+        values3.put("Salário", "R$ 2300,00");
+
+        Map<String, Object> values4 = new HashMap<>();
+        values4.put("Nome", "Máquina 1");
+        values4.put("Setor", 1);
+
+        Map<String, Object> values5 = new HashMap<>();
+        values5.put("Nome", "Máquina 2");
+        values5.put("Setor", 2);
+
+        resources.add(new Resource("João", model1, 2, values1));
+        resources.add(new Resource("Maria", model1, 3, values2));
+        resources.add(new Resource("José", model1, 1, values3));
+        resources.add(new Resource("Máquina 1", model1, 1, values4));
+        resources.add(new Resource("Máquina 2", model1, 2, values5));
     }
 
     public List<Resource> getResources() {
