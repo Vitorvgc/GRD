@@ -1,0 +1,46 @@
+.no-header .column-header-background {
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+}
+
+.info-tab {
+    -fx-view-order: 1;
+    -fx-background-color: gray-blue;
+        -fx-text-fill: light-gray;
+    -fx-border-radius: 5 5 0 0;
+    -fx-background-radius: 5 5 0 0;
+}
+
+.info-tab:selected {
+    -fx-view-order: 0;
+    -fx-background-color: dark-blue;
+    -fx-text-fill: light-blue;
+    -fx-translate-x: 7.2px;
+    -fx-scale-x: 1.15;
+    -fx-scale-y: 1.15;
+}
+
+.info-table {
+    -fx-border-color: dark-blue;
+    -fx-background-color: dark-blue;
+}
+
+.info-table .table-row-cell,
+.info-table .list-cell {
+    -fx-text-background-color: light-gray;
+    -fx-background-color: dark-blue;
+    -fx-border-color: dark-blue dark-blue light-gray dark-blue;
+    -fx-border-width: 0.5;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: dark-blue;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    gray-blue: #55677F;
+    dark-blue: #3E4B5E;
+    -fx-color: gray-blue;
+    -fx-background-color: dark-blue;
+}

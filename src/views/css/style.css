@@ -1,0 +1,21 @@
+.root {
+    dark-blue: #3E4B5E;
+    gray-blue: #55677F;
+    light-blue: #42C3FF;
+    light-gray: #D5D5D5;
+}
+
+.table-row-cell,
+.list-cell {
+    -fx-cell-size: 3em;
+}
+
+.table-column {
+    -fx-alignment: center-left;
+}
+
+.table-row-cell:selected,
+.list-cell:selected {
+    -fx-background-color: #42C3FF;
+    -fx-text-background-color: black;
+}
