@@ -24,7 +24,7 @@ public class CreateResourceController {
     private ComboBox<String> modelBox = new ComboBox<>();
     HBox headerHB = new HBox(15);
     VBox contentVB = new VBox(20);
-    private Resource resource;
+    private Resource resource = null;
     private Map<String, TextField> fields;
 
     public void init() {
@@ -56,6 +56,7 @@ public class CreateResourceController {
     private void updateParametersPane(Model model) {
         contentVB.getChildren().clear();
         for (String paramName : model.getParameters().keySet()) {
+            resource.getData().put(paramName, null);
             HBox hb = new HBox(15);
             hb.setAlignment(Pos.CENTER_LEFT);
             Label name = new Label(paramName);
@@ -65,7 +66,8 @@ public class CreateResourceController {
             field.setPrefWidth(170);
             field.textProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue.compareTo("") != 0)
-                    resource.getData().put(name.getText(), newValue);
+                    resource.getData().put(paramName, newValue);
+                else resource.getData().put(paramName, null);
             });
             hb.getChildren().addAll(name, field);
             contentVB.getChildren().add(hb);
@@ -74,6 +76,17 @@ public class CreateResourceController {
 
     @FXML
     private void onCreateResourceClicked() {
+        if (resource != null) {
+            for (String param : resource.getData().keySet())
+                if (resource.getData().get(param) == null)
+                    return;
+            DataManager.getInstance().getResources().add(resource);
+            onCancelClicked();
+        }
+    }
 
+    @FXML
+    private void onCancelClicked() {
+        parametersPane.getScene().getWindow().hide();
     }
 }
