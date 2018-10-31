@@ -3,6 +3,13 @@
     gray-blue: #55677F;
     light-blue: #42C3FF;
     light-gray: #D5D5D5;
+    dark-gray: #5E5E5E;
+}
+
+.title {
+    dark-gray: #5E5E5E;
+    -fx-font-size: 22px;
+    -fx-text-fill: dark-gray;
 }
 
 .table-row-cell,

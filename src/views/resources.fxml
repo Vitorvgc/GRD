@@ -5,15 +5,10 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="648.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ResourcesController">
    <children>
-      <Label layoutX="26.0" layoutY="13.0" text="Lista de Recursos" textFill="#5e5e5e">
-         <font>
-            <Font name="System Bold" size="22.0" />
-         </font>
-      </Label>
+      <Label layoutX="26.0" layoutY="13.0" styleClass="title" text="Lista de Recursos" />
       <Button layoutX="26.0" layoutY="57.0" mnemonicParsing="false" onAction="#addResource" text="Adicionar recurso" />
       <TableView fx:id="resourcesTable" layoutX="26.0" layoutY="102.0" prefHeight="282.0" prefWidth="597.0">
         <columns>
