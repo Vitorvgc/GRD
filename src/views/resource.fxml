@@ -76,7 +76,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#didPressUpdateDataButton" text="Alterar dados" />
                   <Button mnemonicParsing="false" onAction="#didPressAddOcurrenceButton" prefHeight="27.0" prefWidth="150.0" text="Adicionar ocorrência" />
-                  <Button mnemonicParsing="false" onAction="#didPressDeleteResourceButton" text="Excluir registro" />
+                  <Button mnemonicParsing="false" onAction="#didPressDeleteResourceButton" text="Excluir recurso" />
                </children>
             </HBox>
          </children>

@@ -5,11 +5,15 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import models.managers.DataManager;
 import models.resource.Resource;
+import util.AlertHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -63,6 +67,16 @@ public class ResourceController {
     @FXML
     private void didPressDeleteResourceButton() {
 
+        Alert alert = AlertHelper.warning("Excluir Recurso",
+                "Tem certeza que deseja excluir o recurso?\nEssa ação é irreversível.", "Sim", "Não");
+        Optional<ButtonType> option = alert.showAndWait();
+
+        if(option.isPresent() && option.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+
+            DataManager.getInstance().getResources().remove(resource);
+            Stage stage = (Stage) contentContainer.getScene().getWindow();
+            stage.close();
+        }
     }
 
     private void setupTitle() {
