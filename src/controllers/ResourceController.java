@@ -3,13 +3,14 @@ package controllers;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import models.resource.Resource;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class ResourceController {
@@ -19,7 +20,20 @@ public class ResourceController {
                   resourceModelLabel;
 
     @FXML
-    private TableView< Map.Entry<String, Object> > infoTable;
+    private ToggleGroup contentTabs;
+
+    @FXML
+    private ToggleButton informationToggleButton,
+                         ocurrencesToggleButton;
+
+    @FXML
+    private ListView<String> ocurrencesList;
+
+    @FXML
+    private TableView< Map.Entry<String, Object> > informationTable;
+
+    @FXML
+    private Pane contentContainer;
 
     private Resource resource;
 
@@ -29,8 +43,11 @@ public class ResourceController {
 
     @FXML
     private void initialize() {
+
         setupTitle();
-        setupTable();
+        setupToggleButtons();
+        setupInformationTable();
+        setupOcurrencesList();
     }
 
     @FXML
@@ -53,15 +70,43 @@ public class ResourceController {
         resourceModelLabel.setText(resource.getModel().getName());
     }
 
-    private void setupTable() {
+    private void setupToggleButtons() {
 
-        TableColumn< Map.Entry<String, Object>, String > fieldColumn = (TableColumn) infoTable.getColumns().get(0);
-        TableColumn< Map.Entry<String, Object>, String > valueColumn = (TableColumn) infoTable.getColumns().get(1);
+        contentTabs.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+
+            if(newValue == null)
+                oldValue.setSelected(true);
+            else if(informationToggleButton.isSelected()) {
+                informationTable.setVisible(true);
+                ocurrencesList.setVisible(false);
+            }
+            else if(ocurrencesToggleButton.isSelected()) {
+                informationTable.setVisible(false);
+                ocurrencesList.setVisible(true);
+            }
+        });
+    }
+
+    private void setupInformationTable() {
+
+        TableColumn< Map.Entry<String, Object>, String > fieldColumn = (TableColumn) informationTable.getColumns().get(0);
+        TableColumn< Map.Entry<String, Object>, String > valueColumn = (TableColumn) informationTable.getColumns().get(1);
 
         fieldColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
         valueColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().toString()));
 
         ArrayList< Map.Entry<String, Object> > information = new ArrayList<>(resource.getData().entrySet());
-        infoTable.setItems(FXCollections.observableArrayList(information));
+        informationTable.setItems(FXCollections.observableArrayList(information));
+    }
+
+    private void setupOcurrencesList() {
+
+        ocurrencesList.setPlaceholder(new Label("Nenhuma ocorrência registrada"));
+
+        List<String> ocurrences = resource.getOcurrences().stream()
+                .map(ocurrence -> ocurrence.getType().getTitle())
+                .collect(Collectors.toList());
+
+        ocurrencesList.setItems(FXCollections.observableArrayList(new ArrayList<String>(ocurrences)));
     }
 }

@@ -3,19 +3,21 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="352.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="16.0" prefHeight="320.0" prefWidth="391.0" spacing="15.0">
+      <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="16.0" prefHeight="353.0" prefWidth="391.0" spacing="15.0">
          <children>
             <VBox prefHeight="30.0" prefWidth="381.0" spacing="5.0">
                <children>
@@ -33,27 +35,32 @@
                </padding>
             </VBox>
             <Line endX="380.0" />
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="213.0" prefWidth="391.0">
                <children>
                   <HBox prefHeight="27.0" prefWidth="299.0">
                      <children>
-                        <ToggleButton mnemonicParsing="false" selected="true" text="Informações">
+                        <ToggleButton fx:id="informationToggleButton" mnemonicParsing="false" selected="true" text="Informações">
                            <toggleGroup>
-                              <ToggleGroup fx:id="resourceTabs" />
+                              <ToggleGroup fx:id="contentTabs" />
                            </toggleGroup>
                         </ToggleButton>
-                        <ToggleButton mnemonicParsing="false" text="Ocorrências" toggleGroup="$resourceTabs" />
+                        <ToggleButton fx:id="ocurrencesToggleButton" mnemonicParsing="false" text="Ocorrências" toggleGroup="$contentTabs" />
                      </children>
                   </HBox>
-                  <TableView fx:id="infoTable" prefHeight="312.0" prefWidth="391.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" />
-                      <TableColumn prefWidth="75.0" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
+                  <Pane fx:id="contentContainer" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="ocurrencesList" prefHeight="186.0" prefWidth="391.0" visible="false" />
+                        <TableView fx:id="informationTable" prefHeight="186.0" prefWidth="391.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" />
+                            <TableColumn prefWidth="75.0" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </Pane>
                </children>
             </VBox>
             <HBox alignment="CENTER" prefHeight="27.0" spacing="10.0">
