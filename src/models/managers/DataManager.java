@@ -1,13 +1,11 @@
 package models.managers;
 
 import models.resource.Model;
+import models.resource.Ocurrence;
 import models.resource.OcurrenceType;
 import models.resource.Resource;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DataManager {
 
@@ -97,6 +95,21 @@ public class DataManager {
         resources.add(new Resource("José", model1, 1, values3));
         resources.add(new Resource("Máquina 1", model1, 1, values4));
         resources.add(new Resource("Máquina 2", model1, 2, values5));
+
+        // Ocurrences
+
+        resources.get(0).addOcurrence(new Ocurrence(new OcurrenceType("Falta"), new Date(), ""));
+        resources.get(0).addOcurrence(new Ocurrence(new OcurrenceType("Atraso"), new Date(), "30 minutos de atraso"));
+        resources.get(0).addOcurrence(new Ocurrence(new OcurrenceType("Acidente"), new Date(), ""));
+
+        resources.get(1).addOcurrence(new Ocurrence(new OcurrenceType("Atraso"), new Date(), ""));
+        resources.get(1).addOcurrence(new Ocurrence(new OcurrenceType("Atraso"), new Date(), ""));
+
+        resources.get(2).addOcurrence(new Ocurrence(new OcurrenceType("Acidente"), new Date(), "Choque elétrico"));
+        resources.get(2).addOcurrence(new Ocurrence(new OcurrenceType("Acidente"), new Date(), "Cortes profundos no braço direito"));
+        resources.get(2).addOcurrence(new Ocurrence(new OcurrenceType("Acidente"), new Date(), "Fratura da clavícula"));
+        resources.get(2).addOcurrence(new Ocurrence(new OcurrenceType("Acidente"), new Date(), "Queimadura de terceiro grau"));
+        resources.get(2).addOcurrence(new Ocurrence(new OcurrenceType("Falta"), new Date(), ""));
     }
 
     public List<Resource> getResources() {
