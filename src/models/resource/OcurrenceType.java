@@ -8,7 +8,7 @@ public class OcurrenceType {
         this.title = title;
     }
 
-    String getTitle() {
+    public String getTitle() {
         return this.title;
     }
 }
