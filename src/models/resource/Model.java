@@ -7,16 +7,16 @@ public class Model {
 
     private String name;
     private Map<String, Class> parameters;
-    private List<Ocurrence> ocurrences;
+    private List<OcurrenceType> ocurrenceTypes;
 
-    public Model(String name, Map<String, Class> parameters, List<Ocurrence> ocurrences) {
+    public Model(String name, Map<String, Class> parameters, List<OcurrenceType> ocurrenceTypes) {
         this.name = name;
         this.parameters = parameters;
-        this.ocurrences = ocurrences;
+        this.ocurrenceTypes = ocurrenceTypes;
     }
 
-    public void insertOcurrence(Ocurrence ocurrence) {
-        this.ocurrences.add(ocurrence);
+    public void insertOcurrence(OcurrenceType ocurrenceType) {
+        this.ocurrenceTypes.add(ocurrenceType);
     }
 
     public String getName() {
@@ -27,8 +27,8 @@ public class Model {
         return this.parameters;
     }
 
-    public List<Ocurrence> getOcurrences() {
-        return this.ocurrences;
+    public List<OcurrenceType> getOcurrenceTypes() {
+        return this.ocurrenceTypes;
     }
 
 }

@@ -1,14 +1,28 @@
 package models.resource;
 
+import java.util.Date;
+
 public class Ocurrence {
 
-    private String title;
+    private OcurrenceType type;
+    private Date date;
+    private String details;
 
-    public Ocurrence(String title) {
-        this.title = title;
+    public Ocurrence(OcurrenceType type, Date date, String details) {
+        this.type = type;
+        this.date = date;
+        this.details = details;
     }
 
-    String getTitle() {
-        return this.title;
+    public OcurrenceType getType() {
+        return type;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public String getDetails() {
+        return details;
     }
 }

@@ -1,7 +1,7 @@
 package models.managers;
 
 import models.resource.Model;
-import models.resource.Ocurrence;
+import models.resource.OcurrenceType;
 import models.resource.Resource;
 
 import java.util.ArrayList;
@@ -38,10 +38,10 @@ public class DataManager {
         params1.put("Turno", String.class);
         params1.put("Salário", String.class);
 
-        List<Ocurrence> ocurrences1 = new ArrayList<>();
-        ocurrences1.add(new Ocurrence("Atraso"));
-        ocurrences1.add(new Ocurrence("Falta"));
-        ocurrences1.add(new Ocurrence("Acidente"));
+        List<OcurrenceType> ocurrences1 = new ArrayList<>();
+        ocurrences1.add(new OcurrenceType("Atraso"));
+        ocurrences1.add(new OcurrenceType("Falta"));
+        ocurrences1.add(new OcurrenceType("Acidente"));
 
         Model model1 = new Model("Funcionário", params1, ocurrences1);
 
@@ -53,9 +53,9 @@ public class DataManager {
         params2.put("Nome", String.class);
         params2.put("Setor", int.class);
 
-        List<Ocurrence> ocurrences2 = new ArrayList<>();
-        ocurrences2.add(new Ocurrence("Mal funcionamento"));
-        ocurrences2.add(new Ocurrence("Defeito"));
+        List<OcurrenceType> ocurrences2 = new ArrayList<>();
+        ocurrences2.add(new OcurrenceType("Mal funcionamento"));
+        ocurrences2.add(new OcurrenceType("Defeito"));
 
         Model model2 = new Model("Máquina", params2, ocurrences2);
 
