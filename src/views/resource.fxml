@@ -19,11 +19,11 @@
          <children>
             <VBox prefHeight="30.0" prefWidth="381.0" spacing="5.0">
                <children>
-                  <Label text="Nome" textFill="#3e4b5e">
+                  <Label fx:id="resourceNameLabel" text="Nome" textFill="#3e4b5e">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font></Label>
-                  <Label text="Modelo" textFill="#5e5e5e" />
+                  <Label fx:id="resourceModelLabel" text="Modelo" textFill="#5e5e5e" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -45,7 +45,7 @@
                         <ToggleButton mnemonicParsing="false" text="Ocorrências" toggleGroup="$resourceTabs" />
                      </children>
                   </HBox>
-                  <TableView prefHeight="312.0" prefWidth="391.0">
+                  <TableView fx:id="infoTable" prefHeight="312.0" prefWidth="391.0">
                     <columns>
                       <TableColumn prefWidth="75.0" />
                       <TableColumn prefWidth="75.0" />
@@ -58,9 +58,9 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="27.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Alterar dados" />
-                  <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="150.0" text="Adicionar ocorrência" />
-                  <Button mnemonicParsing="false" text="Excluir registro" />
+                  <Button mnemonicParsing="false" onAction="#didPressUpdateDataButton" text="Alterar dados" />
+                  <Button mnemonicParsing="false" onAction="#didPressAddOcurrenceButton" prefHeight="27.0" prefWidth="150.0" text="Adicionar ocorrência" />
+                  <Button mnemonicParsing="false" onAction="#didPressDeleteResourceButton" text="Excluir registro" />
                </children>
             </HBox>
          </children>
