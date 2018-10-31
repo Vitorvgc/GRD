@@ -20,7 +20,7 @@ public class Resource {
         this.occurrences = new ArrayList<>();
     }
 
-    public void addOcurrence(Occurrence occurrence) {
+    public void addOccurrence(Occurrence occurrence) {
         this.occurrences.add(occurrence);
     }
 
