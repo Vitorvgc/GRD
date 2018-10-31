@@ -46,7 +46,7 @@
                               <ToggleGroup fx:id="contentTabs" />
                            </toggleGroup>
                         </ToggleButton>
-                        <ToggleButton fx:id="ocurrencesToggleButton" mnemonicParsing="false" styleClass="info-tab" text="Ocorrências" toggleGroup="$contentTabs">
+                        <ToggleButton fx:id="occurrencesToggleButton" mnemonicParsing="false" styleClass="info-tab" text="Ocorrências" toggleGroup="$contentTabs">
                            <HBox.margin>
                               <Insets left="-5.0" />
                            </HBox.margin></ToggleButton>
@@ -54,7 +54,7 @@
                   </HBox>
                   <Pane fx:id="contentContainer" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <ListView fx:id="ocurrencesList" prefHeight="186.0" prefWidth="391.0" styleClass="info-table" visible="false" />
+                        <ListView fx:id="occurrencesList" prefHeight="186.0" prefWidth="391.0" styleClass="info-table" visible="false" />
                         <TableView fx:id="informationTable" focusTraversable="false" prefHeight="186.0" prefWidth="391.0">
                           <columns>
                             <TableColumn prefWidth="75.0" />
