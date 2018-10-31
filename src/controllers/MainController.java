@@ -99,6 +99,13 @@ public class MainController {
     private void onModelTabClicked() {
         setButtonsToNormalState();
         highlight(modelButton, modelLabel, modelIcon, names[1]);
+
+        try {
+            Pane pane = FXMLLoader.load(getClass().getResource("../views/models.fxml"));
+            contentPane.getChildren().setAll(pane);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

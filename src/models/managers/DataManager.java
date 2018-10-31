@@ -3,7 +3,7 @@ package models.managers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.resource.Model;
-import models.resource.OcurrenceType;
+import models.resource.OccurrenceType;
 import models.resource.Resource;
 
 import java.util.ArrayList;
@@ -40,10 +40,10 @@ public class DataManager {
         params1.put("Turno", String.class);
         params1.put("Salário", String.class);
 
-        List<OcurrenceType> ocurrences1 = new ArrayList<>();
-        ocurrences1.add(new OcurrenceType("Atraso"));
-        ocurrences1.add(new OcurrenceType("Falta"));
-        ocurrences1.add(new OcurrenceType("Acidente"));
+        List<OccurrenceType> ocurrences1 = new ArrayList<>();
+        ocurrences1.add(new OccurrenceType("Atraso"));
+        ocurrences1.add(new OccurrenceType("Falta"));
+        ocurrences1.add(new OccurrenceType("Acidente"));
 
         Model model1 = new Model("Funcionário", params1, ocurrences1);
 
@@ -55,9 +55,9 @@ public class DataManager {
         params2.put("Nome", String.class);
         params2.put("Setor", int.class);
 
-        List<OcurrenceType> ocurrences2 = new ArrayList<>();
-        ocurrences2.add(new OcurrenceType("Mal funcionamento"));
-        ocurrences2.add(new OcurrenceType("Defeito"));
+        List<OccurrenceType> ocurrences2 = new ArrayList<>();
+        ocurrences2.add(new OccurrenceType("Mal funcionamento"));
+        ocurrences2.add(new OccurrenceType("Defeito"));
 
         Model model2 = new Model("Máquina", params2, ocurrences2);
 
