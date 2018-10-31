@@ -1,5 +1,7 @@
 package models.managers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import models.resource.Model;
 import models.resource.OcurrenceType;
 import models.resource.Resource;
@@ -17,12 +19,12 @@ public class DataManager {
         return instance;
     }
 
-    private List<Resource> resources;
-    private List<Model> models;
+    private ObservableList<Resource> resources;
+    private ObservableList<Model> models;
 
     private DataManager() {
-        this.resources = new ArrayList<>();
-        this.models = new ArrayList<>();
+        this.resources = FXCollections.observableArrayList();
+        this.models = FXCollections.observableArrayList();
         setupData();
     }
 
@@ -99,11 +101,11 @@ public class DataManager {
         resources.add(new Resource("Máquina 2", model2, 2, values5));
     }
 
-    public List<Resource> getResources() {
+    public ObservableList<Resource> getResources() {
         return this.resources;
     }
 
-    public List<Model> getModels() {
+    public ObservableList<Model> getModels() {
         return this.models;
     }
 
