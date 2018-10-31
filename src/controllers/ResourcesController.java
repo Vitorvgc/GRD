@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import models.managers.DataManager;
 import models.resource.Resource;
 
+import java.io.IOException;
+
 
 public class ResourcesController {
 
@@ -31,7 +33,18 @@ public class ResourcesController {
 
     @FXML
     private void addResource() {
-        System.out.println("Add resource");
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/createResource.fxml"));
+        CreateResourceController controller = new CreateResourceController();
+        loader.setController(controller);
+        stage.setTitle("Adicionar Recurso");
+        try {
+            stage.setScene(new Scene(loader.load(), 430, 400));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        controller.init();
+        stage.show();
     }
 
     private void showResource(Resource resource) {

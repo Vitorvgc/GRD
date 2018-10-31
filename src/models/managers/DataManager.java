@@ -95,8 +95,8 @@ public class DataManager {
         resources.add(new Resource("João", model1, 2, values1));
         resources.add(new Resource("Maria", model1, 3, values2));
         resources.add(new Resource("José", model1, 1, values3));
-        resources.add(new Resource("Máquina 1", model1, 1, values4));
-        resources.add(new Resource("Máquina 2", model1, 2, values5));
+        resources.add(new Resource("Máquina 1", model2, 1, values4));
+        resources.add(new Resource("Máquina 2", model2, 2, values5));
     }
 
     public List<Resource> getResources() {
