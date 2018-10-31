@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="430.0" spacing="12.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Criação de Recurso" textAlignment="CENTER" textFill="#3e4b5e">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Line endX="380.0" stroke="#3e4b5e" />
+      <ScrollPane fx:id="parametersPane" prefHeight="295.0" prefWidth="400.0" style="-fx-background: transparent; -fx-background-color: #3E4B5E;">
+         <content>
+            <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="328.0" spacing="15.0">
+               <children>
+                  <Label text="Escolha um modelo" textFill="#d5d5d5">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="modelBox" prefHeight="27.0" prefWidth="173.0" />
+               </children>
+            </HBox>
+         </content>
+         <padding>
+            <Insets left="10.0" top="10.0" />
+         </padding>
+      </ScrollPane>
+      <Button mnemonicParsing="false" text="Criar Recurso" />
+   </children>
+   <padding>
+      <Insets left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>
