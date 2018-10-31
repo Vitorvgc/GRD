@@ -10,7 +10,7 @@ public class Resource {
     private Model model;
     private int section;
     private Map<String, Object> data;
-    private List<OcurrenceType> ocurrences;
+    private List<Ocurrence> ocurrences;
 
     public Resource(String name, Model model, int section, Map<String, Object> data) {
         this.name = name;
@@ -20,7 +20,7 @@ public class Resource {
         this.ocurrences = new ArrayList<>();
     }
 
-    public void addOcurrence(OcurrenceType ocurrence) {
+    public void addOcurrence(Ocurrence ocurrence) {
         this.ocurrences.add(ocurrence);
     }
 
@@ -40,7 +40,7 @@ public class Resource {
         return this.data;
     }
 
-    public List<OcurrenceType> getOcurrences() {
+    public List<Ocurrence> getOcurrences() {
         return this.ocurrences;
     }
 
