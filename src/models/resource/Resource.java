@@ -25,16 +25,14 @@ public class Resource {
     }
 
     public String getName() {
-        return this.name;
+        return data.get("Nome").toString();
     }
 
     public Model getModel() {
         return this.model;
     }
 
-    public int getSection() {
-        return this.section;
-    }
+    public int getSection() { return Integer.parseInt(data.get("Setor").toString()); }
 
     public Map<String, Object> getData() {
         return this.data;

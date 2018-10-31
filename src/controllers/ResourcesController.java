@@ -1,8 +1,6 @@
 package controllers;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,16 +13,12 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.managers.DataManager;
 import models.resource.Resource;
-
 import java.io.IOException;
-
 
 public class ResourcesController {
 
     @FXML
     private TableView<Resource> resourcesTable;
-
-    private ObservableList<Resource> data = FXCollections.observableArrayList(DataManager.getInstance().getResources());
 
     @FXML
     private void initialize() {
@@ -86,9 +80,7 @@ public class ResourcesController {
             });
             return row;
         });
-
         resourcesTable.setPlaceholder(new Label("Nenhum recurso registrado"));
-        resourcesTable.setItems(data);
-
+        resourcesTable.setItems(DataManager.getInstance().getResources());
     }
 }

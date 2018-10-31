@@ -16,7 +16,7 @@
          </font>
       </Label>
       <Line endX="380.0" stroke="#3e4b5e" />
-      <ScrollPane fx:id="parametersPane" prefHeight="295.0" prefWidth="400.0" style="-fx-background: transparent; -fx-background-color: #3E4B5E;">
+      <ScrollPane fx:id="parametersPane" prefHeight="295.0" prefWidth="400.0" style="-fx-background: transparent; -fx-background-color: #3E4B5E; -fx-background-radius: 10;">
          <padding>
             <Insets left="10.0" top="10.0" />
          </padding>
@@ -24,7 +24,7 @@
       <HBox alignment="CENTER" spacing="20.0">
          <children>
             <Button mnemonicParsing="false" onAction="#onCreateResourceClicked" text="Criar Recurso" />
-            <Button mnemonicParsing="false" text="Cancelar" />
+            <Button mnemonicParsing="false" onAction="#onCancelClicked" text="Cancelar" />
          </children>
       </HBox>
    </children>
