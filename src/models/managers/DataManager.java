@@ -19,11 +19,21 @@ public class DataManager {
 
     private ObservableList<Resource> resources;
     private ObservableList<Model> models;
+    private Map<Class, String> typeNames;
 
     private DataManager() {
         this.resources = FXCollections.observableArrayList();
         this.models = FXCollections.observableArrayList();
+        setupTypeNames();
         setupData();
+    }
+
+    // Stores user-friendly names for the types of parameter in models
+    public void setupTypeNames() {
+        this.typeNames = new Hashtable<Class, String>();
+        typeNames.put(int.class, "Número");
+        typeNames.put(float.class, "Número");
+        typeNames.put(String.class, "Texto");
     }
 
     // Hardcoded data for test purposes
@@ -121,5 +131,7 @@ public class DataManager {
     public ObservableList<Model> getModels() {
         return this.models;
     }
+
+    public String getNameOfClass(Class c) { return typeNames.get(c); }
 
 }
