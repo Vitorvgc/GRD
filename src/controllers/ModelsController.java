@@ -13,8 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.managers.DataManager;
 import models.resource.Model;
-
-import java.io.IOException;
+import models.resource.Resource;
 
 public class ModelsController {
 
@@ -29,6 +28,22 @@ public class ModelsController {
     @FXML
     private void addModel() {}
 
+    private void showModel(Model model) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/model.fxml"));
+            ModelController controller = new ModelController(model);
+            loader.setController(controller);
+            Pane pane = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle(model.getName());
+            stage.setScene(new Scene(pane));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void setupTable() {
 
         TableColumn<Model, String> nameColumn = (TableColumn) modelsTable.getColumns().get(0);
@@ -38,6 +53,18 @@ public class ModelsController {
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         parametersColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getParameters().keySet().size())));
         occurrencesColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getOccurrenceTypes().size())));
+
+        // double click event on row -> show clicked resource
+        modelsTable.setRowFactory(tableView -> {
+            TableRow<Model> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                    Model model = row.getItem();
+                    showModel(model);
+                }
+            });
+            return row;
+        });
 
         modelsTable.setPlaceholder(new Label("Nenhum modelo registrado"));
         modelsTable.setItems(DataManager.getInstance().getModels());
