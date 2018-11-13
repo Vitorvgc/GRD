@@ -76,7 +76,7 @@ public class ModelController {
         TableColumn< Map.Entry<String, Class>, String > typeColumn = (TableColumn) parametersTable.getColumns().get(1);
 
         fieldColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
-        typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DataManager.getInstance().getNameOfClass(cellData.getValue().getValue())));
+        typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DataManager.getInstance().getTypeNames().get(cellData.getValue().getValue())));
 
         ArrayList< Map.Entry<String, Class> > parameter = new ArrayList<>(model.getParameters().entrySet());
         parametersTable.setItems(FXCollections.observableArrayList(parameter));

@@ -23,9 +23,7 @@ public class Model {
         return this.name;
     }
 
-    public Map<String, Class> getParameters() {
-        return this.parameters;
-    }
+    public Map<String, Class> getParameters() { return this.parameters; }
 
     public List<OccurrenceType> getOccurrenceTypes() {
         return this.occurrenceTypes;

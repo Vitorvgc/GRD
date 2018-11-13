@@ -121,6 +121,6 @@ public class ResourceController {
                 .map(occurrence -> occurrence.getType().getTitle())
                 .collect(Collectors.toList());
 
-        occurrencesList.setItems(FXCollections.observableArrayList(new ArrayList<String>(occurrences)));
+        occurrencesList.setItems(FXCollections.observableArrayList(new ArrayList<>(occurrences)));
     }
 }
