@@ -15,6 +15,8 @@ import models.managers.DataManager;
 import models.resource.Model;
 import models.resource.Resource;
 
+import java.io.IOException;
+
 public class ModelsController {
 
     @FXML
@@ -26,7 +28,19 @@ public class ModelsController {
     }
 
     @FXML
-    private void addModel() {}
+    private void addModel() {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/createModel.fxml"));
+        CreateModelController controller = new CreateModelController ();
+        loader.setController(controller);
+        stage.setTitle("Adicionar Modelo");
+        try {
+            stage.setScene(new Scene(loader.load(), 430, 400));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.show();
+    }
 
     private void showModel(Model model) {
 
