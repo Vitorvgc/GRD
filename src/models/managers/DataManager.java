@@ -6,7 +6,6 @@ import models.resource.Model;
 import models.resource.OccurrenceType;
 import models.resource.Occurrence;
 import models.resource.Resource;
-
 import java.util.*;
 
 public class DataManager {
@@ -32,7 +31,6 @@ public class DataManager {
     public void setupTypeNames() {
         this.typeNames = new Hashtable<Class, String>();
         typeNames.put(int.class, "Número");
-        typeNames.put(float.class, "Número");
         typeNames.put(String.class, "Texto");
     }
 
@@ -132,6 +130,12 @@ public class DataManager {
         return this.models;
     }
 
-    public String getNameOfClass(Class c) { return typeNames.get(c); }
+    public Map<Class, String> getTypeNames() { return typeNames; }
 
+    public Class getKeyByValue(String value) {
+        for (Map.Entry<Class, String> entry : typeNames.entrySet())
+            if (Objects.equals(value, entry.getValue()))
+                return entry.getKey();
+        return null;
+    }
 }
