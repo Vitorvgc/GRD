@@ -7,15 +7,15 @@ import java.util.Map;
 public class Resource {
 
     private String name;
+    private String section;
     private Model model;
-    private int section;
     private Map<String, Object> data;
     private List<Occurrence> occurrences;
 
-    public Resource(String name, Model model, int section, Map<String, Object> data) {
-        this.name = name;
+    public Resource(Model model, Map<String, Object> data) {
+        this.name = data.get("Nome").toString();
+        this.section = data.get("Setor").toString();
         this.model = model;
-        this.section = section;
         this.data = data;
         this.occurrences = new ArrayList<>();
     }
@@ -25,14 +25,14 @@ public class Resource {
     }
 
     public String getName() {
-        return data.get("Nome").toString();
+        return this.name;
     }
 
     public Model getModel() {
         return this.model;
     }
 
-    public int getSection() { return Integer.parseInt(data.get("Setor").toString()); }
+    public String getSection() { return this.section; }
 
     public Map<String, Object> getData() {
         return this.data;

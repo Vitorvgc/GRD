@@ -25,18 +25,17 @@ public class CreateResourceController {
     HBox headerHB = new HBox(15);
     VBox contentVB = new VBox(20);
     private Resource resource = null;
-    private Map<String, TextField> fields;
+    private Model selectedModel = null;
+    private Map<String, Object> data;
 
     public void init() {
         for (Model model : DataManager.getInstance().getModels())
             modelBox.getItems().add(model.getName());
         modelBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            Model selectedModel = null;
             for (Model model : DataManager.getInstance().getModels())
                 if (model.getName().compareTo(newValue) == 0) {
                     selectedModel = model;
-                    resource = new Resource("", model, 0, new HashMap<>());
-                    fields = new HashMap<>();
+                    data = new HashMap<>();
                     break;
                 }
             updateParametersPane(selectedModel);
@@ -56,7 +55,7 @@ public class CreateResourceController {
     private void updateParametersPane(Model model) {
         contentVB.getChildren().clear();
         for (String paramName : model.getParameters().keySet()) {
-            resource.getData().put(paramName, null);
+            data.put(paramName, null);
             HBox hb = new HBox(15);
             hb.setAlignment(Pos.CENTER_LEFT);
             Label name = new Label(paramName);
@@ -66,8 +65,9 @@ public class CreateResourceController {
             field.setPrefWidth(170);
             field.textProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue.compareTo("") != 0)
-                    resource.getData().put(paramName, newValue);
-                else resource.getData().put(paramName, null);
+                    data.put(paramName, newValue);
+                else
+                    data.put(paramName, null);
             });
             hb.getChildren().addAll(name, field);
             contentVB.getChildren().add(hb);
@@ -76,13 +76,17 @@ public class CreateResourceController {
 
     @FXML
     private void onCreateResourceClicked() {
-        if (resource != null) {
-            for (String param : resource.getData().keySet())
-                if (resource.getData().get(param) == null)
-                    return;
-            DataManager.getInstance().getResources().add(resource);
-            onCancelClicked();
-        }
+
+        if(selectedModel == null || data == null)
+            return;
+
+        resource = new Resource(selectedModel, data);
+
+        for (String param : resource.getData().keySet())
+            if (resource.getData().get(param) == null)
+                return;
+        DataManager.getInstance().getResources().add(resource);
+        onCancelClicked();
     }
 
     @FXML

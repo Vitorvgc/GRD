@@ -42,7 +42,7 @@ public class DataManager {
         Map<String, Class> params1 = new HashMap<>();
         params1.put("Nome", String.class);
         params1.put("Idade", int.class);
-        params1.put("Setor", int.class);
+        params1.put("Setor", String.class);
         params1.put("Turno", String.class);
         params1.put("Salário", String.class);
 
@@ -59,7 +59,7 @@ public class DataManager {
 
         Map<String, Class> params2 = new HashMap<>();
         params2.put("Nome", String.class);
-        params2.put("Setor", int.class);
+        params2.put("Setor", String.class);
 
         List<OccurrenceType> occurrences2 = new ArrayList<>();
         occurrences2.add(new OccurrenceType("Mal funcionamento"));
@@ -100,11 +100,11 @@ public class DataManager {
         values5.put("Nome", "Máquina 2");
         values5.put("Setor", 2);
 
-        resources.add(new Resource("João", model1, 2, values1));
-        resources.add(new Resource("Maria", model1, 3, values2));
-        resources.add(new Resource("José", model1, 1, values3));
-        resources.add(new Resource("Máquina 1", model2, 1, values4));
-        resources.add(new Resource("Máquina 2", model2, 2, values5));
+        resources.add(new Resource(model1, values1));
+        resources.add(new Resource(model1, values2));
+        resources.add(new Resource(model1, values3));
+        resources.add(new Resource(model2, values4));
+        resources.add(new Resource(model2, values5));
 
         // Occurrences
 
