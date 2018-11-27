@@ -25,14 +25,22 @@ public class CreateModelController {
     private List<ParameterModelBox> boxes = new ArrayList<>();
 
     @FXML
+    private void initialize() {
+        ParameterModelBox nameField = new ParameterModelBox(contentVB, false);
+        nameField.setTextFieldName("Nome");
+        nameField.setTypeBoxValue("Texto");
+        setupNewParameterBox(nameField);
+
+        ParameterModelBox sectorField = new ParameterModelBox(contentVB, false);
+        sectorField.setTextFieldName("Setor");
+        sectorField.setTypeBoxValue("Texto");
+        setupNewParameterBox(sectorField);
+    }
+
+    @FXML
     private void onAddParameterClicked() {
         ParameterModelBox hb = new ParameterModelBox(contentVB);
-        hb.getRemoveButton().setOnAction(event -> {
-            contentVB.getChildren().remove(hb);
-            boxes.remove(hb);
-        });
-        contentVB.getChildren().add(hb);
-        boxes.add(hb);
+        setupNewParameterBox(hb);
     }
 
     @FXML
@@ -44,15 +52,19 @@ public class CreateModelController {
             return;
         String name = nameField.getText();
         Map<String, Class> parameters = new HashMap<>();
-        parameters.put("Nome", String.class);
-        parameters.put("Setor", int.class);
         for (ParameterModelBox box : boxes) {
-            if (box.getTextField().getText().isEmpty())
+            if (box.getTextField().getText().isEmpty()) {
+                System.out.println("Error: no field name specified");
                 return;
-            if (box.getTypeBox().getSelectionModel().isEmpty())
+            }
+            if (box.getTypeBox().getSelectionModel().isEmpty()) {
+                System.out.println("Error: no field type specified");
                 return;
-            if (parameters.containsKey(box.getTextField().getText()))
+            }
+            if (parameters.containsKey(box.getTextField().getText())) {
+                System.out.println("Error: field already specified");
                 return;
+            }
             String paramName = box.getTextField().getText();
             Class paramClass = DataManager.getInstance().
                     getKeyByValue(box.getTypeBox().getSelectionModel().getSelectedItem());
@@ -63,6 +75,15 @@ public class CreateModelController {
         Model model = new Model(name, parameters, occurrences);
         DataManager.getInstance().getModels().add(model);
         onCancelClicked();
+    }
+
+    private void setupNewParameterBox(ParameterModelBox box) {
+        box.getRemoveButton().setOnAction(event -> {
+            contentVB.getChildren().remove(box);
+            boxes.remove(box);
+        });
+        contentVB.getChildren().add(box);
+        boxes.add(box);
     }
 
     @FXML

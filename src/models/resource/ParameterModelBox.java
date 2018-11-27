@@ -15,6 +15,7 @@ public class ParameterModelBox extends HBox {
     private Button removeParameterButton = new Button("-");
     private TextField field = new TextField();
     private ComboBox<String> typeBox = new ComboBox<>();
+    private boolean editable = true;
 
     public ParameterModelBox(Pane parent) {
         super(15);
@@ -34,9 +35,40 @@ public class ParameterModelBox extends HBox {
         getChildren().addAll(name, field, type, typeBox, removeParameterButton);
     }
 
+    public ParameterModelBox(Pane parent, boolean editable) {
+        this(parent);
+        this.setEditable(editable);
+    }
+
+    public void setEditable(boolean editable) {
+
+        if(editable == this.editable) return;
+
+        this.editable = editable;
+        field.setDisable(!editable);
+        field.setOpacity(1.0);
+        field.setStyle("-fx-text-fill: " + (editable ? "black" : "gray"));
+        typeBox.setDisable(!editable);
+        typeBox.setOpacity(1.0);
+
+        removeParameterButton.setVisible(editable);
+    }
+
+    public boolean isEditable() {
+        return this.editable;
+    }
+
     public Button getRemoveButton() { return removeParameterButton; }
 
     public TextField getTextField() { return field; }
 
     public ComboBox<String> getTypeBox() { return typeBox; }
+
+    public void setTextFieldName(String name) {
+        this.field.setText(name);
+    }
+
+    public void setTypeBoxValue(String value) {
+        this.typeBox.setValue(value);
+    }
 }
