@@ -1,5 +1,6 @@
 package controllers;
 
+import database.ModelDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -97,6 +98,10 @@ public class CreateModelController {
             occurrenceTypes.add(type);
         }
         Model model = new Model(name, parameters, occurrenceTypes);
+
+        ModelDAO dao = new ModelDAO();
+        dao.add(model);
+
         DataManager.getInstance().getModels().add(model);
         onCancelClicked();
     }
