@@ -9,7 +9,7 @@ public class ConnectionFactory {
     public Connection getConnection() {
         try {
             return DriverManager.getConnection(
-                    "jdbc:mysql://localhost/GRDDB", "root", "root");
+                    "jdbc:mysql://localhost/GRDDB", "root", "");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
