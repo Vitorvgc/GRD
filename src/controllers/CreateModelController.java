@@ -7,7 +7,6 @@ import models.managers.DataManager;
 import models.resource.Model;
 import models.resource.OccurrenceType;
 import models.resource.ParameterModelBox;
-
 import java.util.*;
 
 public class CreateModelController {
