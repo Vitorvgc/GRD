@@ -9,12 +9,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import models.managers.DataManager;
 
-public class ParameterModelBox extends LineBox {
+public class ModelParameterBox extends LineBox {
 
     private ComboBox<String> typeBox = new ComboBox<>();
     private boolean editable = true;
 
-    public ParameterModelBox(Pane parent) {
+    public ModelParameterBox(Pane parent) {
         super(15);
         setAlignment(Pos.CENTER_LEFT);
 
@@ -32,7 +32,7 @@ public class ParameterModelBox extends LineBox {
         getChildren().addAll(name, field, type, typeBox, removeParameterButton);
     }
 
-    public ParameterModelBox(Pane parent, boolean editable) {
+    public ModelParameterBox(Pane parent, boolean editable) {
         this(parent);
         this.setEditable(editable);
     }

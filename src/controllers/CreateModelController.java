@@ -2,11 +2,11 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import models.managers.DataManager;
-import models.resource.Model;
-import models.resource.OccurrenceType;
-import models.resource.ParameterModelBox;
+import models.resource.*;
+
 import java.util.*;
 
 public class CreateModelController {
@@ -19,27 +19,38 @@ public class CreateModelController {
 
     @FXML
     private VBox contentVB;
+    @FXML
+    private VBox parametersVB;
+    @FXML
+    private VBox occurrencesVB;
 
     private Model model = null;
-    private List<ParameterModelBox> boxes = new ArrayList<>();
+    private List<LineBox> paramBoxes = new ArrayList<>();
+    private List<LineBox> typeBoxes = new ArrayList<>();
 
     @FXML
     private void initialize() {
-        ParameterModelBox nameField = new ParameterModelBox(contentVB, false);
+        ModelParameterBox nameField = new ModelParameterBox(parametersVB, false);
         nameField.setTextFieldName("Nome");
         nameField.setTypeBoxValue("Texto");
-        setupNewParameterBox(nameField);
+        setupNewLineBox(nameField, paramBoxes, parametersVB);
 
-        ParameterModelBox sectorField = new ParameterModelBox(contentVB, false);
+        ModelParameterBox sectorField = new ModelParameterBox(parametersVB, false);
         sectorField.setTextFieldName("Setor");
         sectorField.setTypeBoxValue("Texto");
-        setupNewParameterBox(sectorField);
+        setupNewLineBox(sectorField, paramBoxes, parametersVB);
     }
 
     @FXML
     private void onAddParameterClicked() {
-        ParameterModelBox hb = new ParameterModelBox(contentVB);
-        setupNewParameterBox(hb);
+        ModelParameterBox hb = new ModelParameterBox(parametersVB);
+        setupNewLineBox(hb, paramBoxes, parametersVB);
+    }
+
+    @FXML
+    private void onAddOccurrenceClicked() {
+        OccurrenceTypeBox hb = new OccurrenceTypeBox(occurrencesVB);
+        setupNewLineBox(hb, typeBoxes, occurrencesVB);
     }
 
     @FXML
@@ -51,7 +62,9 @@ public class CreateModelController {
             return;
         String name = nameField.getText();
         Map<String, Class> parameters = new HashMap<>();
-        for (ParameterModelBox box : boxes) {
+        List<OccurrenceType> occurrenceTypes = new ArrayList<>();
+        for (LineBox lb : paramBoxes) {
+            ModelParameterBox box = (ModelParameterBox) lb;
             if (box.getTextField().getText().isEmpty()) {
                 System.out.println("Error: no field name specified");
                 return;
@@ -69,20 +82,32 @@ public class CreateModelController {
                     getKeyByValue(box.getTypeBox().getSelectionModel().getSelectedItem());
             parameters.put(paramName, paramClass);
         }
-        List<OccurrenceType> occurrences = new ArrayList<>();
-        occurrences.add(new OccurrenceType("ocorrencia"));
-        Model model = new Model(name, parameters, occurrences);
+        for (LineBox lb : typeBoxes) {
+            OccurrenceTypeBox box = (OccurrenceTypeBox) lb;
+            if (box.getTextField().getText().isEmpty()) {
+                System.out.println("Error: no field name specified");
+                return;
+            }
+            if (parameters.containsKey(box.getTextField().getText())) {
+                System.out.println("Error: field already specified");
+                return;
+            }
+            String typeName = box.getTextField().getText();
+            OccurrenceType type = new OccurrenceType(typeName);
+            occurrenceTypes.add(type);
+        }
+        Model model = new Model(name, parameters, occurrenceTypes);
         DataManager.getInstance().getModels().add(model);
         onCancelClicked();
     }
 
-    private void setupNewParameterBox(ParameterModelBox box) {
+    private void setupNewLineBox(LineBox box, List<LineBox> array, Pane pane) {
         box.getRemoveButton().setOnAction(event -> {
-            contentVB.getChildren().remove(box);
-            boxes.remove(box);
+            pane.getChildren().remove(box);
+            array.remove(box);
         });
-        contentVB.getChildren().add(box);
-        boxes.add(box);
+        pane.getChildren().add(box);
+        array.add(box);
     }
 
     @FXML
