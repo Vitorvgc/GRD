@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import models.managers.DataManager;
 import models.resource.*;
+import util.TableUpdater;
 
 import java.util.*;
 
@@ -28,9 +29,11 @@ public class CreateModelController {
     private Model model = null;
     private List<LineBox> paramBoxes = new ArrayList<>();
     private List<LineBox> typeBoxes = new ArrayList<>();
+    private TableUpdater tableUpdater;
 
-    @FXML
-    private void initialize() {
+    public void initialize(TableUpdater tableUpdater) {
+        this.tableUpdater = tableUpdater;
+
         ModelParameterBox nameField = new ModelParameterBox(parametersVB, false);
         nameField.setTextFieldName("Nome");
         nameField.setTypeBoxValue("Texto");
@@ -58,7 +61,7 @@ public class CreateModelController {
     private void onCreateModelClicked() {
         if (nameField.getText().isEmpty())
             return;
-        if (DataManager.getInstance().getModels().stream().filter(
+        if (new ModelDAO().getAll().stream().filter(
                 m -> m.getName().compareTo(nameField.getText()) == 0).count() != 0)
             return;
         String name = nameField.getText();
@@ -102,7 +105,7 @@ public class CreateModelController {
         ModelDAO dao = new ModelDAO();
         dao.add(model);
 
-        DataManager.getInstance().getModels().add(model);
+        tableUpdater.updateTable();
         onCancelClicked();
     }
 

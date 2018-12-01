@@ -1,11 +1,17 @@
 package database;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import models.resource.Model;
 import models.resource.OccurrenceType;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ModelDAO {
 
@@ -43,5 +49,38 @@ public class ModelDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ObservableList<Model> getAll() {
+        ObservableList<Model> models = FXCollections.observableArrayList();
+        try {
+            PreparedStatement stmt = connection.prepareStatement("select * from Model");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Model model;
+                String name = rs.getString("name");
+                String paramString = rs.getString("parameters");
+                String[] paramList = paramString.split("[:;]");
+                Map<String, Class> parameters = new HashMap<>();
+                for (int i = 0; i < paramList.length; i += 2) {
+                    Class paramClass = paramList[i + 1].compareTo("Text") == 0 ? String.class : int.class;
+                    parameters.put(paramList[i], paramClass);
+                }
+                String occurString = rs.getString("occurrences");
+                String[] occurList = occurString.split("[;]");
+                List<OccurrenceType> occurrences = new ArrayList<>();
+                for (String occurrence : occurList) {
+                    OccurrenceType type = new OccurrenceType(occurrence);
+                    occurrences.add(type);
+                }
+                model = new Model(name, parameters, occurrences);
+                models.add(model);
+            }
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return models;
     }
 }

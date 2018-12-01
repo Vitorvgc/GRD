@@ -1,5 +1,6 @@
 package controllers;
 
+import database.ModelDAO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,13 +12,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import models.managers.DataManager;
 import models.resource.Model;
-import models.resource.Resource;
+import util.TableUpdater;
 
 import java.io.IOException;
 
-public class ModelsController {
+public class ModelsController implements TableUpdater {
 
     @FXML
     private TableView<Model> modelsTable;
@@ -39,6 +39,7 @@ public class ModelsController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        controller.initialize(this);
         stage.show();
     }
 
@@ -81,6 +82,11 @@ public class ModelsController {
         });
 
         modelsTable.setPlaceholder(new Label("Nenhum modelo registrado"));
-        modelsTable.setItems(DataManager.getInstance().getModels());
+        modelsTable.setItems(new ModelDAO().getAll());
+    }
+
+    @Override
+    public void updateTable() {
+        modelsTable.setItems(new ModelDAO().getAll());
     }
 }

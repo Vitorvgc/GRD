@@ -1,5 +1,7 @@
 package controllers;
 
+import database.ModelDAO;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -29,10 +31,11 @@ public class CreateResourceController {
     private Map<String, Object> data;
 
     public void init() {
-        for (Model model : DataManager.getInstance().getModels())
+        ObservableList<Model> models = new ModelDAO().getAll();
+        for (Model model : models)
             modelBox.getItems().add(model.getName());
         modelBox.valueProperty().addListener((observable, oldValue, newValue) -> {
-            for (Model model : DataManager.getInstance().getModels())
+            for (Model model : models)
                 if (model.getName().compareTo(newValue) == 0) {
                     selectedModel = model;
                     data = new HashMap<>();
