@@ -3,12 +3,15 @@ package database;
 import javafx.util.Pair;
 import models.resource.Model;
 import models.resource.OccurrenceType;
+import util.TypeName;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ModelDAO {
 
@@ -67,8 +70,7 @@ public class ModelDAO {
                 "(id int auto_increment, ";
         for (Pair<String, Class> parameter : model.getParameters()) {
             sql += parameter.getKey() + " ";
-            //TODO: improve type conversions
-            sql += (parameter.getValue() == int.class ? "int" : "varchar(80)") + " not null, ";
+            sql += TypeName.fromJavaClass(parameter.getValue()).toSQLDataType() + " not null, ";
         }
         sql += "primary key (id));";
 
@@ -91,9 +93,9 @@ public class ModelDAO {
                 if (name.equals("id"))
                     continue;
                 String type = resultSet.getString(2);
-                //TODO: improve type conversions
-                Class typeClass = type.equals("int") ? int.class : String.class;
-                parameters.add(new Pair<>(name, typeClass));
+                Class typeClass = TypeName.fromSQLDataType(type).toJavaClass();
+                if (typeClass != null)
+                    parameters.add(new Pair<>(name, typeClass));
             }
 
             return parameters;
