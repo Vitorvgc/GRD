@@ -8,10 +8,10 @@ import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 import models.managers.DataManager;
 import models.resource.Model;
+import util.TypeName;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ModelController {
@@ -77,7 +77,7 @@ public class ModelController {
         TableColumn< Pair<String, Class>, String > typeColumn = (TableColumn) parametersTable.getColumns().get(1);
 
         fieldColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
-        typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DataManager.getInstance().getTypeNames().get(cellData.getValue().getValue())));
+        typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(TypeName.fromJavaClass(cellData.getValue().getValue()).toString()));
 
         ArrayList< Pair<String, Class> > parameter = new ArrayList<>(model.getParameters());
 

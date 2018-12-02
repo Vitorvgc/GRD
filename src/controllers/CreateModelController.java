@@ -6,9 +6,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
-import models.managers.DataManager;
 import models.resource.*;
 import util.TableUpdater;
+import util.TypeName;
 
 import java.util.*;
 
@@ -83,8 +83,8 @@ public class CreateModelController {
                 return;
             }
             String paramName = box.getTextField().getText().toLowerCase().replace(' ', '_');
-            Class paramClass = DataManager.getInstance().
-                    getKeyByValue(box.getTypeBox().getSelectionModel().getSelectedItem());
+            String selectedClass = box.getTypeBox().getSelectionModel().getSelectedItem();
+            Class paramClass = TypeName.fromUserType(selectedClass).toJavaClass();
             parameters.add(new Pair<>(paramName, paramClass));
         }
         for (LineBox lb : typeBoxes) {
