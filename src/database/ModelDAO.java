@@ -1,7 +1,6 @@
 package database;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.util.Pair;
 import models.resource.Model;
 import models.resource.OccurrenceType;
 import java.sql.Connection;
@@ -9,9 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ModelDAO {
 
@@ -21,66 +18,90 @@ public class ModelDAO {
         this.connection = new ConnectionFactory().getConnection();
     }
 
-    public void add(Model model) {
-        String sql = "insert into Model " +
-                     "(name,parameters,occurrences) " +
-                     "values (?,?,?)";
+    public Model get(String modelName) throws RuntimeException {
+
+        String sql = "select COLUMN_NAME, DATA_TYPE from information_schema.columns " +
+                     "where TABLE_SCHEMA = ? and TABLE_NAME = ?";
+
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            String parameters = "", types = "";
-            boolean first = true;
-            for (String param : model.getParameters().keySet()) {
-                if (!first) parameters += ";";
-                else first = false;
-                String className = model.getParameters().get(param) == String.class ? "Text" : "Number";
-                parameters += param + ":" + className;
-            }
-            first = true;
-            for (OccurrenceType type : model.getOccurrenceTypes()) {
-                if (!first) types += ";";
-                else first = false;
-                types += type.getTitle();
-            }
-            stmt.setString(1, model.getName());
-            stmt.setString(2, parameters);
-            stmt.setString(3, types);
-            stmt.execute();
-            stmt.close();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, "GRD");
+            statement.setString(2, modelName.replace(' ', '_'));
+
+            ResultSet resultSet = statement.executeQuery();
+
+            List<Pair<String, Class>> parameters = getParameters(resultSet);
+
+            //TODO: Manage the occurence types
+            return new Model(modelName.replace('_', ' '), parameters, new ArrayList<OccurrenceType>());
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public ObservableList<Model> getAll() {
-        ObservableList<Model> models = FXCollections.observableArrayList();
+    public List<Model> getAll() throws RuntimeException {
+
+        String sql = "select distinct TABLE_NAME from information_schema.columns where TABLE_SCHEMA = ?";
         try {
-            PreparedStatement stmt = connection.prepareStatement("select * from Model");
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Model model;
-                String name = rs.getString("name");
-                String paramString = rs.getString("parameters");
-                String[] paramList = paramString.split("[:;]");
-                Map<String, Class> parameters = new HashMap<>();
-                for (int i = 0; i < paramList.length; i += 2) {
-                    Class paramClass = paramList[i + 1].compareTo("Text") == 0 ? String.class : int.class;
-                    parameters.put(paramList[i], paramClass);
-                }
-                String occurString = rs.getString("occurrences");
-                String[] occurList = occurString.split("[;]");
-                List<OccurrenceType> occurrences = new ArrayList<>();
-                for (String occurrence : occurList) {
-                    OccurrenceType type = new OccurrenceType(occurrence);
-                    occurrences.add(type);
-                }
-                model = new Model(name, parameters, occurrences);
-                models.add(model);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, "GRD");
+
+            ResultSet resultSet = statement.executeQuery();
+
+            ArrayList<Model> models = new ArrayList<>();
+            while (resultSet.next()) {
+                String tableName = resultSet.getString(1);
+                models.add(get(tableName));
             }
-            stmt.close();
-            connection.close();
+            return models;
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return models;
+    }
+
+    public void add(Model model) {
+
+        String sql = "create table " + model.getName().replace(' ', '_') +
+                "(id int auto_increment, ";
+        for (Pair<String, Class> parameter : model.getParameters()) {
+            sql += parameter.getKey() + " ";
+            //TODO: improve type conversions
+            sql += (parameter.getValue() == int.class ? "int" : "varchar(80)") + " not null, ";
+        }
+        sql += "primary key (id));";
+
+        System.out.println(sql);
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<Pair<String, Class>> getParameters(ResultSet resultSet) {
+
+        try {
+            ArrayList<Pair<String, Class>> parameters = new ArrayList<>();
+            while (resultSet.next()) {
+                String name = resultSet.getString(1).toLowerCase().replace('_', ' ');
+                if (name.equals("id"))
+                    continue;
+                String type = resultSet.getString(2);
+                //TODO: improve type conversions
+                Class typeClass = type.equals("int") ? int.class : String.class;
+                parameters.add(new Pair<>(name, typeClass));
+            }
+
+            return parameters;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
