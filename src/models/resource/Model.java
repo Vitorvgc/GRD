@@ -1,15 +1,17 @@
 package models.resource;
 
+import javafx.util.Pair;
+
 import java.util.List;
 import java.util.Map;
 
 public class Model {
 
     private String name;
-    private Map<String, Class> parameters;
+    private List<Pair<String, Class>> parameters;
     private List<OccurrenceType> occurrenceTypes;
 
-    public Model(String name, Map<String, Class> parameters, List<OccurrenceType> occurrenceTypes) {
+    public Model(String name, List<Pair<String, Class>> parameters, List<OccurrenceType> occurrenceTypes) {
         this.name = name;
         this.parameters = parameters;
         this.occurrenceTypes = occurrenceTypes;
@@ -23,7 +25,7 @@ public class Model {
         return this.name;
     }
 
-    public Map<String, Class> getParameters() { return this.parameters; }
+    public List<Pair<String, Class>> getParameters() { return this.parameters; }
 
     public List<OccurrenceType> getOccurrenceTypes() {
         return this.occurrenceTypes;

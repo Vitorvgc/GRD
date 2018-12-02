@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.util.Pair;
 import models.managers.DataManager;
 import models.resource.Model;
 
@@ -29,7 +30,7 @@ public class ModelController {
     private ListView<String> occurrencesList;
 
     @FXML
-    private TableView< Map.Entry<String, Class> > parametersTable;
+    private TableView< Pair<String, Class> > parametersTable;
 
     @FXML
     private Pane contentContainer;
@@ -72,13 +73,14 @@ public class ModelController {
 
     private void setupParametersTable() {
 
-        TableColumn< Map.Entry<String, Class>, String > fieldColumn = (TableColumn) parametersTable.getColumns().get(0);
-        TableColumn< Map.Entry<String, Class>, String > typeColumn = (TableColumn) parametersTable.getColumns().get(1);
+        TableColumn< Pair<String, Class>, String > fieldColumn = (TableColumn) parametersTable.getColumns().get(0);
+        TableColumn< Pair<String, Class>, String > typeColumn = (TableColumn) parametersTable.getColumns().get(1);
 
         fieldColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
         typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DataManager.getInstance().getTypeNames().get(cellData.getValue().getValue())));
 
-        ArrayList< Map.Entry<String, Class> > parameter = new ArrayList<>(model.getParameters().entrySet());
+        ArrayList< Pair<String, Class> > parameter = new ArrayList<>(model.getParameters());
+
         parametersTable.setItems(FXCollections.observableArrayList(parameter));
     }
 

@@ -13,8 +13,8 @@ public class Resource {
     private List<Occurrence> occurrences;
 
     public Resource(Model model, Map<String, Object> data) {
-        this.name = data.get("Nome").toString();
-        this.section = data.get("Setor").toString();
+        this.name = data.get("nome").toString();
+        this.section = data.get("setor").toString();
         this.model = model;
         this.data = data;
         this.occurrences = new ArrayList<>();
