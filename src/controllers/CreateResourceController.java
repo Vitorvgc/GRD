@@ -14,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
-import models.managers.DataManager;
 import models.resource.Model;
 import models.resource.Resource;
 import java.util.HashMap;
@@ -91,7 +90,7 @@ public class CreateResourceController {
         for (String param : resource.getData().keySet())
             if (resource.getData().get(param) == null)
                 return;
-        DataManager.getInstance().getResources().add(resource);
+        //TODO: add resource
         onCancelClicked();
     }
 

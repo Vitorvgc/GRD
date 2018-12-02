@@ -11,7 +11,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import models.managers.DataManager;
 import models.resource.Resource;
 import java.io.IOException;
 
@@ -81,6 +80,7 @@ public class ResourcesController {
             return row;
         });
         resourcesTable.setPlaceholder(new Label("Nenhum recurso registrado"));
-        resourcesTable.setItems(DataManager.getInstance().getResources());
+        //TODO: get resources
+        resourcesTable.setItems(null);
     }
 }
