@@ -7,7 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import models.managers.DataManager;
+import util.TypeName;
+
+import java.util.Arrays;
 
 public class ModelParameterBox extends LineBox {
 
@@ -26,8 +28,9 @@ public class ModelParameterBox extends LineBox {
         Label type = new Label("Tipo");
         name.setTextFill(Color.web("#d5d5d5"));
 
-        for (String typeName : DataManager.getInstance().getTypeNames().values())
-            typeBox.getItems().add(typeName);
+        Arrays.stream(TypeName.values()).map(TypeName::toString).forEach(typeName ->
+                typeBox.getItems().add(typeName)
+        );
 
         getChildren().addAll(name, field, type, typeBox, removeParameterButton);
     }

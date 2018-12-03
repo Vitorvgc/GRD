@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import models.managers.DataManager;
 import models.resource.Resource;
 import util.AlertHelper;
 
@@ -73,7 +72,7 @@ public class ResourceController {
 
         if(option.isPresent() && option.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
 
-            DataManager.getInstance().getResources().remove(resource);
+            //TODO: remove resource
             Stage stage = (Stage) contentContainer.getScene().getWindow();
             stage.close();
         }

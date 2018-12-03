@@ -5,9 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import models.managers.DataManager;
+import javafx.util.Pair;
 import models.resource.*;
 import util.TableUpdater;
+import util.TypeName;
 
 import java.util.*;
 
@@ -32,6 +33,7 @@ public class CreateModelController {
     private TableUpdater tableUpdater;
 
     public void initialize(TableUpdater tableUpdater) {
+        
         this.tableUpdater = tableUpdater;
 
         ModelParameterBox nameField = new ModelParameterBox(parametersVB, false);
@@ -61,11 +63,10 @@ public class CreateModelController {
     private void onCreateModelClicked() {
         if (nameField.getText().isEmpty())
             return;
-        if (new ModelDAO().getAll().stream().filter(
-                m -> m.getName().compareTo(nameField.getText()) == 0).count() != 0)
+        if (new ModelDAO().getAll().stream().anyMatch(m -> m.getName().equals(nameField.getText())))
             return;
         String name = nameField.getText();
-        Map<String, Class> parameters = new HashMap<>();
+        List<Pair<String, Class>> parameters = new ArrayList<>();
         List<OccurrenceType> occurrenceTypes = new ArrayList<>();
         for (LineBox lb : paramBoxes) {
             ModelParameterBox box = (ModelParameterBox) lb;
@@ -77,14 +78,14 @@ public class CreateModelController {
                 System.out.println("Error: no field type specified");
                 return;
             }
-            if (parameters.containsKey(box.getTextField().getText())) {
+            if (parameters.stream().anyMatch(p -> p.getKey().equals(box.getTextField().getText()))) {
                 System.out.println("Error: field already specified");
                 return;
             }
-            String paramName = box.getTextField().getText();
-            Class paramClass = DataManager.getInstance().
-                    getKeyByValue(box.getTypeBox().getSelectionModel().getSelectedItem());
-            parameters.put(paramName, paramClass);
+            String paramName = box.getTextField().getText().toLowerCase().replace(' ', '_');
+            String selectedClass = box.getTypeBox().getSelectionModel().getSelectedItem();
+            Class paramClass = TypeName.fromUserType(selectedClass).toJavaClass();
+            parameters.add(new Pair<>(paramName, paramClass));
         }
         for (LineBox lb : typeBoxes) {
             OccurrenceTypeBox box = (OccurrenceTypeBox) lb;
@@ -92,7 +93,7 @@ public class CreateModelController {
                 System.out.println("Error: no field name specified");
                 return;
             }
-            if (parameters.containsKey(box.getTextField().getText())) {
+            if (parameters.stream().anyMatch(p -> p.getKey().equals(box.getTextField().getText()))) {
                 System.out.println("Error: field already specified");
                 return;
             }

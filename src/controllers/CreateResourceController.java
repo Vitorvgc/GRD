@@ -1,6 +1,7 @@
 package controllers;
 
 import database.ModelDAO;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -12,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import models.managers.DataManager;
+import javafx.util.Pair;
 import models.resource.Model;
 import models.resource.Resource;
 import java.util.HashMap;
@@ -31,7 +32,8 @@ public class CreateResourceController {
     private Map<String, Object> data;
 
     public void init() {
-        ObservableList<Model> models = new ModelDAO().getAll();
+        ObservableList<Model> models = FXCollections.observableArrayList(new ModelDAO().getAll());
+
         for (Model model : models)
             modelBox.getItems().add(model.getName());
         modelBox.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -57,7 +59,7 @@ public class CreateResourceController {
 
     private void updateParametersPane(Model model) {
         contentVB.getChildren().clear();
-        for (String paramName : model.getParameters().keySet()) {
+        model.getParameters().stream().map(Pair::getKey).forEach(paramName -> {
             data.put(paramName, null);
             HBox hb = new HBox(15);
             hb.setAlignment(Pos.CENTER_LEFT);
@@ -74,7 +76,7 @@ public class CreateResourceController {
             });
             hb.getChildren().addAll(name, field);
             contentVB.getChildren().add(hb);
-        }
+        });
     }
 
     @FXML
@@ -88,7 +90,7 @@ public class CreateResourceController {
         for (String param : resource.getData().keySet())
             if (resource.getData().get(param) == null)
                 return;
-        DataManager.getInstance().getResources().add(resource);
+        //TODO: add resource
         onCancelClicked();
     }
 

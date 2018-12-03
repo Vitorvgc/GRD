@@ -2,6 +2,7 @@ package controllers;
 
 import database.ModelDAO;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -66,7 +67,7 @@ public class ModelsController implements TableUpdater {
         TableColumn<Model, String> occurrencesColumn = (TableColumn) modelsTable.getColumns().get(2);
 
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        parametersColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getParameters().keySet().size())));
+        parametersColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getParameters().size())));
         occurrencesColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getOccurrenceTypes().size())));
 
         // double click event on row -> show clicked resource
@@ -82,11 +83,11 @@ public class ModelsController implements TableUpdater {
         });
 
         modelsTable.setPlaceholder(new Label("Nenhum modelo registrado"));
-        modelsTable.setItems(new ModelDAO().getAll());
+        modelsTable.setItems(FXCollections.observableArrayList(new ModelDAO().getAll()));
     }
 
     @Override
     public void updateTable() {
-        modelsTable.setItems(new ModelDAO().getAll());
+        modelsTable.setItems(FXCollections.observableArrayList(new ModelDAO().getAll()));
     }
 }
