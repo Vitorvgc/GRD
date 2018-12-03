@@ -100,18 +100,15 @@ public class MainController {
         setButtonsToNormalState();
         highlight(modelButton, modelLabel, modelIcon, names[1]);
 
-        try {
-            Pane pane = FXMLLoader.load(getClass().getResource("../views/models.fxml"));
-            contentPane.getChildren().setAll(pane);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        loadFXML("models");
     }
 
     @FXML
     private void onMPRTabClicked() {
         setButtonsToNormalState();
         highlight(mprButton, mprLabel, mprIcon, names[2]);
+
+        loadFXML("mpr");
     }
 
     @FXML
@@ -145,6 +142,15 @@ public class MainController {
             buttons[i].setStyle("-fx-background-color: #3D4B5E");
             labels[i].setTextFill(Color.web("#D5D5D5"));
             icons[i].setImage(new Image(getClass().getResource(names[i] + "_light.png").toExternalForm()));
+        }
+    }
+
+    private void loadFXML(String fxml) {
+        try {
+            Pane pane = FXMLLoader.load(getClass().getResource("../views/" + fxml + ".fxml"));
+            contentPane.getChildren().setAll(pane);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
