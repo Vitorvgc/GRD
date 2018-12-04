@@ -6,10 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
-import models.managers.DataManager;
 import models.resource.Model;
 import util.TypeName;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

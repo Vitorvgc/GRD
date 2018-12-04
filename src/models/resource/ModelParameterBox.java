@@ -16,7 +16,7 @@ public class ModelParameterBox extends LineBox {
     private ComboBox<String> typeBox = new ComboBox<>();
     private boolean editable = true;
 
-    public ModelParameterBox(Pane parent) {
+    public ModelParameterBox() {
         super(15);
         setAlignment(Pos.CENTER_LEFT);
 
@@ -35,8 +35,8 @@ public class ModelParameterBox extends LineBox {
         getChildren().addAll(name, field, type, typeBox, removeParameterButton);
     }
 
-    public ModelParameterBox(Pane parent, boolean editable) {
-        this(parent);
+    public ModelParameterBox(boolean editable) {
+        this();
         this.setEditable(editable);
     }
 
@@ -69,6 +69,7 @@ public class ModelParameterBox extends LineBox {
     }
 
     public void setTypeBoxValue(String value) {
-        this.typeBox.setValue(value);
+        this.typeBox.getItems().add(value);
+        this.typeBox.getSelectionModel().select(value);
     }
 }

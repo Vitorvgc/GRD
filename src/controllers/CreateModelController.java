@@ -9,7 +9,6 @@ import javafx.util.Pair;
 import models.resource.*;
 import util.TableUpdater;
 import util.TypeName;
-
 import java.util.*;
 
 public class CreateModelController {
@@ -27,7 +26,6 @@ public class CreateModelController {
     @FXML
     private VBox occurrencesVB;
 
-    private Model model = null;
     private List<LineBox> paramBoxes = new ArrayList<>();
     private List<LineBox> typeBoxes = new ArrayList<>();
     private TableUpdater tableUpdater;
@@ -36,20 +34,20 @@ public class CreateModelController {
         
         this.tableUpdater = tableUpdater;
 
-        ModelParameterBox nameField = new ModelParameterBox(parametersVB, false);
+        ModelParameterBox nameField = new ModelParameterBox(false);
         nameField.setTextFieldName("Nome");
-        nameField.setTypeBoxValue("Texto");
+        nameField.setTypeBoxValue("texto");
         setupNewLineBox(nameField, paramBoxes, parametersVB);
 
-        ModelParameterBox sectorField = new ModelParameterBox(parametersVB, false);
+        ModelParameterBox sectorField = new ModelParameterBox(false);
         sectorField.setTextFieldName("Setor");
-        sectorField.setTypeBoxValue("Texto");
+        sectorField.setTypeBoxValue("texto");
         setupNewLineBox(sectorField, paramBoxes, parametersVB);
     }
 
     @FXML
     private void onAddParameterClicked() {
-        ModelParameterBox hb = new ModelParameterBox(parametersVB);
+        ModelParameterBox hb = new ModelParameterBox();
         setupNewLineBox(hb, paramBoxes, parametersVB);
     }
 
