@@ -1,6 +1,7 @@
 package controllers;
 
 import database.ModelDAO;
+import database.ResourceDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -88,8 +89,10 @@ public class CreateResourceController {
             return;
 
         ArrayList<Pair<String, Object>> dataArray = new ArrayList<>();
-        for (Map.Entry<String, Object> entry : data.entrySet())
-            dataArray.add(new Pair<>(entry.getKey(), entry.getValue()));
+
+        selectedModel.getParameters().stream().map(Pair::getKey).forEach(param ->
+            dataArray.add(new Pair<>(param, data.get(param)))
+        );
 
         resource = new Resource(selectedModel, dataArray);
 
