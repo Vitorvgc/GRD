@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import models.resource.Resource;
 import util.AlertHelper;
 
@@ -33,7 +34,7 @@ public class ResourceController {
     private ListView<String> occurrencesList;
 
     @FXML
-    private TableView< Map.Entry<String, Object> > informationTable;
+    private TableView<Pair<String, Object>> informationTable;
 
     @FXML
     private Pane contentContainer;
@@ -102,13 +103,13 @@ public class ResourceController {
 
     private void setupInformationTable() {
 
-        TableColumn< Map.Entry<String, Object>, String > fieldColumn = (TableColumn) informationTable.getColumns().get(0);
-        TableColumn< Map.Entry<String, Object>, String > valueColumn = (TableColumn) informationTable.getColumns().get(1);
+        TableColumn<Pair<String, Object>, String> fieldColumn = (TableColumn) informationTable.getColumns().get(0);
+        TableColumn<Pair<String, Object>, String> valueColumn = (TableColumn) informationTable.getColumns().get(1);
 
         fieldColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
         valueColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().toString()));
 
-        ArrayList< Map.Entry<String, Object> > information = new ArrayList<>(resource.getData().entrySet());
+        ArrayList<Pair<String, Object>> information = new ArrayList<>(resource.getData());
         informationTable.setItems(FXCollections.observableArrayList(information));
     }
 

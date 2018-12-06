@@ -16,6 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import models.resource.Model;
 import models.resource.Resource;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,14 +84,18 @@ public class CreateResourceController {
     @FXML
     private void onCreateResourceClicked() {
 
-        if(selectedModel == null || data == null)
+        if (selectedModel == null || data == null)
             return;
 
-        resource = new Resource(selectedModel, data);
+        ArrayList<Pair<String, Object>> dataArray = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : data.entrySet())
+            dataArray.add(new Pair<>(entry.getKey(), entry.getValue()));
 
-        for (String param : resource.getData().keySet())
-            if (resource.getData().get(param) == null)
-                return;
+        resource = new Resource(selectedModel, dataArray);
+
+        if (resource.getData().stream().anyMatch(param -> param.getValue() == null))
+            return;
+
         //TODO: add resource
         onCancelClicked();
     }
