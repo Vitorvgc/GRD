@@ -1,6 +1,8 @@
 package controllers;
 
+import database.ResourceDAO;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.resource.Resource;
 import java.io.IOException;
+import java.util.List;
 
 public class ResourcesController {
 
@@ -80,7 +83,8 @@ public class ResourcesController {
             return row;
         });
         resourcesTable.setPlaceholder(new Label("Nenhum recurso registrado"));
-        //TODO: get resources
-        resourcesTable.setItems(null);
+        
+        List<Resource> resources = new ResourceDAO().getAll();
+        resourcesTable.setItems(FXCollections.observableArrayList(resources));
     }
 }
