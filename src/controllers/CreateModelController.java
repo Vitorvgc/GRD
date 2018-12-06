@@ -1,6 +1,7 @@
 package controllers;
 
 import database.ModelDAO;
+import database.OccurrenceTypeDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
@@ -101,8 +102,12 @@ public class CreateModelController {
         }
         Model model = new Model(name, parameters, occurrenceTypes);
 
-        ModelDAO dao = new ModelDAO();
-        dao.add(model);
+        ModelDAO modelDAO = new ModelDAO();
+        modelDAO.add(model);
+
+        OccurrenceTypeDAO occurrenceTypeDAO = new OccurrenceTypeDAO();
+        for (OccurrenceType occurrenceType : occurrenceTypes)
+            occurrenceTypeDAO.add(occurrenceType, model);
 
         tableUpdater.updateTable();
         onCancelClicked();

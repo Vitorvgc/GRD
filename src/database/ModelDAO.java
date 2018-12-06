@@ -31,13 +31,15 @@ public class ModelDAO {
             statement.setString(1, "GRD");
             statement.setString(2, modelName.replace(' ', '_'));
 
+            OccurrenceTypeDAO occurrenceTypeDAO = new OccurrenceTypeDAO();
+
             ResultSet resultSet = statement.executeQuery();
 
             List<Pair<String, Class>> parameters = getParameters(resultSet);
+            List<OccurrenceType> occurrenceTypes = occurrenceTypeDAO.
+                    getByModelName(modelName.replace(' ', '_'));
 
-            //TODO: Manage the occurence types
-            return new Model(modelName.replace('_', ' '), parameters, new ArrayList<OccurrenceType>());
-
+            return new Model(modelName.replace('_', ' '), parameters, occurrenceTypes);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -55,6 +57,8 @@ public class ModelDAO {
             ArrayList<Model> models = new ArrayList<>();
             while (resultSet.next()) {
                 String tableName = resultSet.getString(1);
+                if (tableName.equals("OccurrenceType"))
+                    continue;
                 models.add(get(tableName));
             }
             return models;
@@ -73,8 +77,6 @@ public class ModelDAO {
             sql += TypeName.fromJavaClass(parameter.getValue()).toSQLDataType() + " not null, ";
         }
         sql += "primary key (id));";
-
-        System.out.println(sql);
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
