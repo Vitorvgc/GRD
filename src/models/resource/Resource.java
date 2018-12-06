@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public class Resource {
 
+    private int id;
     private String name;
     private String section;
     private Model model;
@@ -17,14 +18,14 @@ public class Resource {
 
     public Resource(Model model, List<Pair<String, Object>> data) {
 
-        Optional nameField = data.stream().filter(field -> field.getKey().equals("nome")).findFirst();
-        Optional sectionField = data.stream().filter(field -> field.getKey().equals("setor")).findFirst();
+        Optional<Pair<String, Object>> nameField = data.stream().filter(field -> field.getKey().equals("nome")).findFirst();
+        Optional<Pair<String, Object>> sectionField = data.stream().filter(field -> field.getKey().equals("setor")).findFirst();
 
         if (!nameField.isPresent() || !sectionField.isPresent())
             throw new RuntimeException();
 
-        this.name = nameField.get().toString();
-        this.section = sectionField.get().toString();
+        this.name = nameField.get().getValue().toString();
+        this.section = sectionField.get().getValue().toString();
         this.model = model;
         this.data = data;
         this.occurrences = new ArrayList<>();
@@ -32,6 +33,14 @@ public class Resource {
 
     public void addOccurrence(Occurrence occurrence) {
         this.occurrences.add(occurrence);
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public String getName() {
