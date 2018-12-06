@@ -99,7 +99,7 @@ public class CreateResourceController {
         if (resource.getData().stream().anyMatch(param -> param.getValue() == null))
             return;
 
-        //TODO: add resource
+        new ResourceDAO().add(resource);
         onCancelClicked();
     }
 

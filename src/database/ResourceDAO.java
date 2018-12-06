@@ -21,7 +21,9 @@ public class ResourceDAO {
 
     public Resource get(Model model, int id) {
 
-        String[] modelParameters = model.getParameters().stream().map(Pair::getKey).toArray(String[]::new);
+        String[] modelParameters = model.getParameters().stream()
+                .map(param -> param.getKey().replace(' ', '_'))
+                .toArray(String[]::new);
         String params = String.join(", ", modelParameters);
 
         String sql = "select " + params + " from " + model.getName() + " where id = ?";
@@ -75,6 +77,42 @@ public class ResourceDAO {
 
     public void add(Resource resource) {
 
+        Model model = resource.getModel();
+        String[] modelParameters = model.getParameters().stream()
+                .map(param -> param.getKey().replace(' ', '_'))
+                .toArray(String[]::new);
+        String params = String.join(", ", modelParameters);
+
+        String values = "(";
+        for (int i = 0; i < modelParameters.length; ++i) {
+            values += "?";
+            values += (i == modelParameters.length - 1 ? ")" : ", ");
+        }
+
+        String sql = "insert into " + model.getName() + " (" + params + ") " +
+                "values " + values;
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            for (int i = 0; i < resource.getData().size(); ++i) {
+
+                String name = resource.getData().get(i).getKey();
+                Object value = resource.getData().get(i).getValue();
+                Class type = model.getParameters().stream()
+                        .filter(param -> param.getKey().equals(name))
+                        .findFirst().get().getValue();
+
+                if (type == int.class)
+                    statement.setInt(i + 1, Integer.parseInt(value.toString()));
+                else
+                    statement.setString(i + 1, value.toString());
+            }
+
+            statement.execute();
+        } catch (SQLException | NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(Resource resource) {
