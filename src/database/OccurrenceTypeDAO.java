@@ -2,6 +2,8 @@ package database;
 
 import models.resource.Model;
 import models.resource.OccurrenceType;
+import util.StringFormatter;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,9 +26,9 @@ public class OccurrenceTypeDAO {
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1,
-                    occurrenceType.getTitle().replace(' ', '_'));
+                    StringFormatter.codeFormat(occurrenceType.getTitle()));
             statement.setString(2,
-                    model.getName().replace(' ', '_'));
+                    StringFormatter.codeFormat(model.getName()));
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,14 +39,14 @@ public class OccurrenceTypeDAO {
         String sql = "select name from OccurrenceType where model = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, model.replace(' ', '_'));
+            statement.setString(1, StringFormatter.codeFormat(model));
 
             ResultSet resultSet = statement.executeQuery();
 
             ArrayList<OccurrenceType> types = new ArrayList<>();
             while (resultSet.next()) {
                 String type = resultSet.getString("name");
-                types.add(new OccurrenceType(type.replace('_', ' ')));
+                types.add(new OccurrenceType(StringFormatter.codeFormat(type)));
             }
             return types;
         } catch (SQLException e) {

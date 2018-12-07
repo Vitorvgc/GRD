@@ -14,6 +14,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.resource.Resource;
+import util.StringFormatter;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -67,7 +69,7 @@ public class ResourcesController {
         TableColumn<Resource, String> occurrencesColumn = (TableColumn) resourcesTable.getColumns().get(3);
 
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        modelColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getModel().getName()));
+        modelColumn.setCellValueFactory(cellData -> new SimpleStringProperty(StringFormatter.userFormat(cellData.getValue().getModel().getName())));
         sectionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSection()));
         occurrencesColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getOccurrences().size())));
 

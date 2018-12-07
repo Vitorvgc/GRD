@@ -3,6 +3,7 @@ package database;
 import javafx.util.Pair;
 import models.resource.Model;
 import models.resource.OccurrenceType;
+import util.StringFormatter;
 import util.TypeName;
 
 import java.sql.Connection;
@@ -26,10 +27,12 @@ public class ModelDAO {
         String sql = "select COLUMN_NAME, DATA_TYPE from information_schema.columns " +
                      "where TABLE_SCHEMA = ? and TABLE_NAME = ?";
 
+        modelName = StringFormatter.codeFormat(modelName);
+
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, "GRD");
-            statement.setString(2, modelName.replace(' ', '_'));
+            statement.setString(2, modelName);
 
             OccurrenceTypeDAO occurrenceTypeDAO = new OccurrenceTypeDAO();
 
@@ -37,9 +40,9 @@ public class ModelDAO {
 
             List<Pair<String, Class>> parameters = getParameters(resultSet);
             List<OccurrenceType> occurrenceTypes = occurrenceTypeDAO.
-                    getByModelName(modelName.replace(' ', '_'));
+                    getByModelName(modelName);
 
-            return new Model(modelName.replace('_', ' '), parameters, occurrenceTypes);
+            return new Model(modelName, parameters, occurrenceTypes);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -70,7 +73,7 @@ public class ModelDAO {
 
     public void add(Model model) {
 
-        String sql = "create table " + model.getName().replace(' ', '_') +
+        String sql = "create table " + StringFormatter.codeFormat(model.getName()) +
                 "(id int auto_increment, ";
         for (Pair<String, Class> parameter : model.getParameters()) {
             sql += parameter.getKey() + " ";
@@ -91,7 +94,7 @@ public class ModelDAO {
         try {
             ArrayList<Pair<String, Class>> parameters = new ArrayList<>();
             while (resultSet.next()) {
-                String name = resultSet.getString(1).toLowerCase().replace('_', ' ');
+                String name = StringFormatter.codeFormat(resultSet.getString(1));
                 if (name.equals("id"))
                     continue;
                 String type = resultSet.getString(2);

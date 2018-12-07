@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import models.resource.Model;
 import models.resource.Resource;
+import util.StringFormatter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,10 +39,10 @@ public class CreateResourceController {
         ObservableList<Model> models = FXCollections.observableArrayList(new ModelDAO().getAll());
 
         for (Model model : models)
-            modelBox.getItems().add(model.getName());
+            modelBox.getItems().add(StringFormatter.userFormat(model.getName()));
         modelBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             for (Model model : models)
-                if (model.getName().compareTo(newValue) == 0) {
+                if (StringFormatter.userFormat(model.getName()).equals(newValue)) {
                     selectedModel = model;
                     data = new HashMap<>();
                     break;
@@ -66,13 +67,14 @@ public class CreateResourceController {
             data.put(paramName, null);
             HBox hb = new HBox(15);
             hb.setAlignment(Pos.CENTER_LEFT);
-            Label name = new Label(paramName);
+            Label name = new Label(StringFormatter.userFormat(paramName));
             name.setTextFill(Color.web("#d5d5d5"));
             name.setPrefWidth(120);
             TextField field = new TextField();
             field.setPrefWidth(170);
             field.textProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue.compareTo("") != 0)
+                newValue = newValue.trim();
+                if (!newValue.isEmpty())
                     data.put(paramName, newValue);
                 else
                     data.put(paramName, null);

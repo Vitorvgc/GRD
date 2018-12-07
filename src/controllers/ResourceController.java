@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 import models.resource.Resource;
 import util.AlertHelper;
+import util.StringFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,8 +81,8 @@ public class ResourceController {
     }
 
     private void setupTitle() {
-        resourceNameLabel.setText(resource.getName());
-        resourceModelLabel.setText(resource.getModel().getName());
+        resourceNameLabel.setText(StringFormatter.userFormat(resource.getName()));
+        resourceModelLabel.setText(StringFormatter.userFormat(resource.getModel().getName()));
     }
 
     private void setupToggleButtons() {
@@ -106,7 +107,7 @@ public class ResourceController {
         TableColumn<Pair<String, Object>, String> fieldColumn = (TableColumn) informationTable.getColumns().get(0);
         TableColumn<Pair<String, Object>, String> valueColumn = (TableColumn) informationTable.getColumns().get(1);
 
-        fieldColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
+        fieldColumn.setCellValueFactory(cellData -> new SimpleStringProperty(StringFormatter.userFormat(cellData.getValue().getKey())));
         valueColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().toString()));
 
         ArrayList<Pair<String, Object>> information = new ArrayList<>(resource.getData());

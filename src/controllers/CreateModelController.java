@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
 import models.resource.*;
+import util.StringFormatter;
 import util.TableUpdater;
 import util.TypeName;
 import java.util.*;
@@ -60,11 +61,14 @@ public class CreateModelController {
 
     @FXML
     private void onCreateModelClicked() {
-        if (nameField.getText().isEmpty())
+
+        String name = nameField.getText().trim();
+
+        if (name.isEmpty())
             return;
-        if (new ModelDAO().getAll().stream().anyMatch(m -> m.getName().equals(nameField.getText())))
+        if (new ModelDAO().getAll().stream().anyMatch(m -> m.getName().equals(name)))
             return;
-        String name = nameField.getText();
+
         List<Pair<String, Class>> parameters = new ArrayList<>();
         List<OccurrenceType> occurrenceTypes = new ArrayList<>();
         for (LineBox lb : paramBoxes) {
@@ -81,22 +85,23 @@ public class CreateModelController {
                 System.out.println("Error: field already specified");
                 return;
             }
-            String paramName = box.getTextField().getText().toLowerCase().replace(' ', '_');
+            String paramName = StringFormatter.codeFormat(box.getTextField().getText());
             String selectedClass = box.getTypeBox().getSelectionModel().getSelectedItem();
             Class paramClass = TypeName.fromUserType(selectedClass).toJavaClass();
             parameters.add(new Pair<>(paramName, paramClass));
         }
         for (LineBox lb : typeBoxes) {
             OccurrenceTypeBox box = (OccurrenceTypeBox) lb;
-            if (box.getTextField().getText().isEmpty()) {
+            String typeName = box.getTextField().getText().trim();
+
+            if (typeName.isEmpty()) {
                 System.out.println("Error: no field name specified");
                 return;
             }
-            if (parameters.stream().anyMatch(p -> p.getKey().equals(box.getTextField().getText()))) {
+            if (parameters.stream().anyMatch(p -> p.getKey().equals(typeName))) {
                 System.out.println("Error: field already specified");
                 return;
             }
-            String typeName = box.getTextField().getText();
             OccurrenceType type = new OccurrenceType(typeName);
             occurrenceTypes.add(type);
         }

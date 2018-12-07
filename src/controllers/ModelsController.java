@@ -14,6 +14,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.resource.Model;
+import util.StringFormatter;
 import util.TableUpdater;
 
 import java.io.IOException;
@@ -66,7 +67,7 @@ public class ModelsController implements TableUpdater {
         TableColumn<Model, String> parametersColumn = (TableColumn) modelsTable.getColumns().get(1);
         TableColumn<Model, String> occurrencesColumn = (TableColumn) modelsTable.getColumns().get(2);
 
-        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(StringFormatter.userFormat(cellData.getValue().getName())));
         parametersColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getParameters().size())));
         occurrencesColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getOccurrenceTypes().size())));
 

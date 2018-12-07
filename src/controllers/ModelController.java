@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 import models.resource.Model;
+import util.StringFormatter;
 import util.TypeName;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class ModelController {
     }
 
     private void setupTitle() {
-        modelNameLabel.setText(model.getName());
+        modelNameLabel.setText(StringFormatter.userFormat(model.getName()));
     }
 
     private void setupToggleButtons() {
@@ -74,7 +75,7 @@ public class ModelController {
         TableColumn< Pair<String, Class>, String > fieldColumn = (TableColumn) parametersTable.getColumns().get(0);
         TableColumn< Pair<String, Class>, String > typeColumn = (TableColumn) parametersTable.getColumns().get(1);
 
-        fieldColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
+        fieldColumn.setCellValueFactory(cellData -> new SimpleStringProperty(StringFormatter.userFormat(cellData.getValue().getKey())));
         typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(TypeName.fromJavaClass(cellData.getValue().getValue()).toString()));
 
         ArrayList< Pair<String, Class> > parameter = new ArrayList<>(model.getParameters());
@@ -87,7 +88,7 @@ public class ModelController {
         occurrencesList.setPlaceholder(new Label("Nenhuma ocorrência registrada"));
 
         List<String> occurrences = model.getOccurrenceTypes().stream()
-                .map(type -> type.getTitle())
+                .map(type -> StringFormatter.userFormat(type.getTitle()))
                 .collect(Collectors.toList());
 
         occurrencesList.setItems(FXCollections.observableArrayList(new ArrayList<>(occurrences)));

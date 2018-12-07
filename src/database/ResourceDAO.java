@@ -3,6 +3,7 @@ package database;
 import javafx.util.Pair;
 import models.resource.Model;
 import models.resource.Resource;
+import util.StringFormatter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,11 +23,11 @@ public class ResourceDAO {
     public Resource get(Model model, int id) {
 
         String[] modelParameters = model.getParameters().stream()
-                .map(param -> param.getKey().replace(' ', '_'))
+                .map(param -> StringFormatter.codeFormat(param.getKey()))
                 .toArray(String[]::new);
         String params = String.join(", ", modelParameters);
 
-        String sql = "select " + params + " from " + model.getName() + " where id = ?";
+        String sql = "select " + params + " from " + StringFormatter.codeFormat(model.getName()) + " where id = ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -55,7 +56,7 @@ public class ResourceDAO {
 
         for (Model model : models) {
 
-            String sql = "select id from " + model.getName();
+            String sql = "select id from " + StringFormatter.codeFormat(model.getName());
 
             try {
                 PreparedStatement statement = connection.prepareStatement(sql);
@@ -79,7 +80,7 @@ public class ResourceDAO {
 
         Model model = resource.getModel();
         String[] modelParameters = model.getParameters().stream()
-                .map(param -> param.getKey().replace(' ', '_'))
+                .map(param -> StringFormatter.codeFormat(param.getKey()))
                 .toArray(String[]::new);
         String params = String.join(", ", modelParameters);
 
@@ -89,7 +90,7 @@ public class ResourceDAO {
             values += (i == modelParameters.length - 1 ? ")" : ", ");
         }
 
-        String sql = "insert into " + model.getName() + " (" + params + ") " +
+        String sql = "insert into " + StringFormatter.codeFormat(model.getName()) + " (" + params + ") " +
                 "values " + values;
 
         try {
