@@ -118,6 +118,16 @@ public class ResourceDAO {
 
     public void delete(Resource resource) {
 
+        String sql = "delete from " + StringFormatter.codeFormat(resource.getModel().getName()) +
+                " where id = ?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, resource.getId());
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private List<Pair<String, Object>> getData(Model model, ResultSet resultSet) {

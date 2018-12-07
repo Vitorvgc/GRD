@@ -1,5 +1,6 @@
 package controllers;
 
+import database.ResourceDAO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -73,8 +74,7 @@ public class ResourceController {
         Optional<ButtonType> option = alert.showAndWait();
 
         if(option.isPresent() && option.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
-
-            //TODO: remove resource
+            new ResourceDAO().delete(resource);
             Stage stage = (Stage) contentContainer.getScene().getWindow();
             stage.close();
         }
