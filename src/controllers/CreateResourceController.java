@@ -18,7 +18,7 @@ import javafx.util.Pair;
 import models.resource.Model;
 import models.resource.Resource;
 import util.StringFormatter;
-
+import util.TableUpdater;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +35,10 @@ public class CreateResourceController {
     private Model selectedModel = null;
     private Map<String, Object> data;
 
-    public void init() {
+    private TableUpdater tableUpdater;
+
+    public void init(TableUpdater tableUpdater) {
+        this.tableUpdater = tableUpdater;
         ObservableList<Model> models = FXCollections.observableArrayList(new ModelDAO().getAll());
 
         for (Model model : models)
@@ -86,7 +89,6 @@ public class CreateResourceController {
 
     @FXML
     private void onCreateResourceClicked() {
-
         if (selectedModel == null || data == null)
             return;
 
@@ -102,6 +104,7 @@ public class CreateResourceController {
             return;
 
         new ResourceDAO().add(resource);
+        tableUpdater.updateTable();
         onCancelClicked();
     }
 

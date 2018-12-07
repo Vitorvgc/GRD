@@ -15,11 +15,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.resource.Resource;
 import util.StringFormatter;
-
+import util.TableUpdater;
 import java.io.IOException;
 import java.util.List;
 
-public class ResourcesController {
+public class ResourcesController implements TableUpdater {
 
     @FXML
     private TableView<Resource> resourcesTable;
@@ -41,12 +41,11 @@ public class ResourcesController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        controller.init();
+        controller.init(this);
         stage.show();
     }
 
     private void showResource(Resource resource) {
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/resource.fxml"));
             ResourceController controller = new ResourceController(resource);
@@ -62,7 +61,6 @@ public class ResourcesController {
     }
 
     private void setupTable() {
-
         TableColumn<Resource, String> nameColumn = (TableColumn) resourcesTable.getColumns().get(0);
         TableColumn<Resource, String> modelColumn = (TableColumn) resourcesTable.getColumns().get(1);
         TableColumn<Resource, String> sectionColumn = (TableColumn) resourcesTable.getColumns().get(2);
@@ -89,4 +87,7 @@ public class ResourcesController {
         List<Resource> resources = new ResourceDAO().getAll();
         resourcesTable.setItems(FXCollections.observableArrayList(resources));
     }
+
+    @Override
+    public void updateTable() { resourcesTable.setItems(FXCollections.observableArrayList(new ResourceDAO().getAll())); }
 }

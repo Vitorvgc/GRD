@@ -32,8 +32,7 @@ public class CreateModelController {
     private List<LineBox> typeBoxes = new ArrayList<>();
     private TableUpdater tableUpdater;
 
-    public void initialize(TableUpdater tableUpdater) {
-        
+    public void init(TableUpdater tableUpdater) {
         this.tableUpdater = tableUpdater;
 
         ModelParameterBox nameField = new ModelParameterBox(false);
@@ -61,7 +60,6 @@ public class CreateModelController {
 
     @FXML
     private void onCreateModelClicked() {
-
         String name = nameField.getText().trim();
 
         if (name.isEmpty())
