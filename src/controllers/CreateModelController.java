@@ -103,6 +103,9 @@ public class CreateModelController {
             OccurrenceType type = new OccurrenceType(typeName);
             occurrenceTypes.add(type);
         }
+        if (occurrenceTypes.size() == 0)
+            return;
+
         Model model = new Model(name, parameters, occurrenceTypes);
 
         ModelDAO modelDAO = new ModelDAO();
