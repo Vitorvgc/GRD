@@ -37,10 +37,6 @@ public class CreateResourceController {
     private Map<String, Object> data;
     private TableUpdater tableUpdater;
 
-    public CreateResourceController(TableUpdater tableUpdater) {
-        this.tableUpdater = tableUpdater;
-    }
-
     @FXML
     private void initialize() {
         ObservableList<Model> models = FXCollections.observableArrayList(new ModelDAO().getAll());
@@ -109,12 +105,17 @@ public class CreateResourceController {
             return;
 
         new ResourceDAO().add(resource);
-        tableUpdater.updateTable();
+        if (tableUpdater != null)
+            tableUpdater.updateTable();
         onCancelClicked();
     }
 
     @FXML
     private void onCancelClicked() {
         parametersPane.getScene().getWindow().hide();
+    }
+
+    public void setTableUpdater(TableUpdater tableUpdater) {
+        this.tableUpdater = tableUpdater;
     }
 }

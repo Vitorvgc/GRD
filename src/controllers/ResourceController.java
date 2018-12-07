@@ -11,6 +11,7 @@ import javafx.util.Pair;
 import models.resource.Resource;
 import util.AlertHelper;
 import util.StringFormatter;
+import util.TableUpdater;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class ResourceController {
     private Pane contentContainer;
 
     private Resource resource;
+    private TableUpdater tableUpdater;
 
     public ResourceController(Resource resource) {
         this.resource = resource;
@@ -75,6 +77,8 @@ public class ResourceController {
 
         if(option.isPresent() && option.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
             new ResourceDAO().delete(resource);
+            if (tableUpdater != null)
+                tableUpdater.updateTable();
             Stage stage = (Stage) contentContainer.getScene().getWindow();
             stage.close();
         }
@@ -123,5 +127,9 @@ public class ResourceController {
                 .collect(Collectors.toList());
 
         occurrencesList.setItems(FXCollections.observableArrayList(new ArrayList<>(occurrences)));
+    }
+
+    public void setTableUpdater(TableUpdater tableUpdater) {
+        this.tableUpdater = tableUpdater;
     }
 }

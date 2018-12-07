@@ -34,7 +34,8 @@ public class ResourcesController implements TableUpdater {
     private void addResource() {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/createResource.fxml"));
-        CreateResourceController controller = new CreateResourceController(this);
+        CreateResourceController controller = new CreateResourceController();
+        controller.setTableUpdater(this);
         loader.setController(controller);
         stage.setTitle("Adicionar Recurso");
         try {
@@ -50,6 +51,7 @@ public class ResourcesController implements TableUpdater {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/resource.fxml"));
             ResourceController controller = new ResourceController(resource);
+            controller.setTableUpdater(this);
             loader.setController(controller);
             Pane pane = loader.load();
             Stage stage = new Stage();
