@@ -15,11 +15,12 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import models.resource.Resource;
 import util.StringFormatter;
+import util.TableUpdater;
 
 import java.io.IOException;
 import java.util.List;
 
-public class ResourcesController {
+public class ResourcesController implements TableUpdater {
 
     @FXML
     private TableView<Resource> resourcesTable;
@@ -33,7 +34,7 @@ public class ResourcesController {
     private void addResource() {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/createResource.fxml"));
-        CreateResourceController controller = new CreateResourceController();
+        CreateResourceController controller = new CreateResourceController(this);
         loader.setController(controller);
         stage.setTitle("Adicionar Recurso");
         try {
@@ -41,7 +42,6 @@ public class ResourcesController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        controller.init();
         stage.show();
     }
 
@@ -85,7 +85,12 @@ public class ResourcesController {
             return row;
         });
         resourcesTable.setPlaceholder(new Label("Nenhum recurso registrado"));
-        
+
+        updateTable();
+    }
+
+    @Override
+    public void updateTable() {
         List<Resource> resources = new ResourceDAO().getAll();
         resourcesTable.setItems(FXCollections.observableArrayList(resources));
     }
