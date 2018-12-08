@@ -92,4 +92,16 @@ public class OccurrenceTypeDAO {
         }
         return 0;
     }
+
+    public OccurrenceType getById(int id) throws SQLException {
+        OccurrenceType type = null;
+        String sql = "select name from Occurrence_Type where id = " + id + ";";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultId = statement.executeQuery();
+        while (resultId.next()) {
+            String typeName = resultId.getString("name");
+            type = new OccurrenceType(StringFormatter.userFormat(typeName));
+        }
+        return type;
+    }
 }
