@@ -1,5 +1,6 @@
 package controllers;
 
+import database.OccurrenceDAO;
 import database.ResourceDAO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import models.resource.Occurrence;
 import models.resource.Resource;
 import util.StringFormatter;
 import util.TableUpdater;
@@ -69,7 +71,10 @@ public class ResourcesController implements TableUpdater {
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         modelColumn.setCellValueFactory(cellData -> new SimpleStringProperty(StringFormatter.userFormat(cellData.getValue().getModel().getName())));
         sectionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSection()));
-        occurrencesColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getOccurrences().size())));
+        occurrencesColumn.setCellValueFactory(cellData -> {
+            List<Occurrence> occurrences = new OccurrenceDAO().getAllFrom(cellData.getValue());
+            return new SimpleStringProperty(Integer.toString(occurrences.size()));
+        });
 
         // double click event on row -> show clicked resource
         resourcesTable.setRowFactory(tableView -> {
