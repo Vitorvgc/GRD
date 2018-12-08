@@ -1,6 +1,5 @@
 package database;
 
-import models.resource.Model;
 import models.resource.Occurrence;
 import models.resource.OccurrenceType;
 import models.resource.Resource;
@@ -10,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OccurrenceDAO {
@@ -21,9 +21,9 @@ public class OccurrenceDAO {
     }
 
     public void add(Occurrence occurrence, Resource resource) {
-        Model model = resource.getModel();
+        String modelName = StringFormatter.codeFormat(resource.getModel().getName());
 
-        String sql = "insert into " + StringFormatter.codeFormat(model.getName()) + "_Occurrence_ (" +
+        String sql = "insert into " + modelName + "_Occurrence_ (" +
                 "idType, idResource, details, date) values (?, ?, ?, ?)";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -37,25 +37,22 @@ public class OccurrenceDAO {
         }
     }
 
-    public List<OccurrenceType> get(Model model, OccurrenceType occurrenceType, int id) {
-        String tableName = String.join("-",
-                StringFormatter.codeFormat(model.getName()),
-                StringFormatter.codeFormat(occurrenceType.getTitle()),
-                String.valueOf(id));
-
-        String sql = "select * from " + tableName;
+    public List<Occurrence> getAllFrom(Resource resource) {
+        String modelName = StringFormatter.codeFormat(resource.getModel().getName());
+        String tableName = modelName + "_Occurrence_";
+        String sql = "select * from " + tableName + " where idResource = " + resource.getId() + ";";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, StringFormatter.codeFormat(model.getName()));
-
             ResultSet resultSet = statement.executeQuery();
-
-            ArrayList<OccurrenceType> types = new ArrayList<>();
+            ArrayList<Occurrence> occurrences = new ArrayList<>();
             while (resultSet.next()) {
-                String type = resultSet.getString("name");
-                types.add(new OccurrenceType(StringFormatter.userFormat(type)));
+                String details = resultSet.getString("details");
+                Date date = resultSet.getDate("date");
+                int idType = resultSet.getInt("idType");
+                OccurrenceType type = new OccurrenceTypeDAO().getById(idType);
+                occurrences.add(new Occurrence(type, date, details));
             }
-            return types;
+            return occurrences;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
