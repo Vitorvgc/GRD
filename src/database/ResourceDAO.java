@@ -118,13 +118,22 @@ public class ResourceDAO {
 
     public void delete(Resource resource) {
 
-        String sql = "delete from " + StringFormatter.codeFormat(resource.getModel().getName()) +
+        String sqlResource = "delete from " + StringFormatter.codeFormat(resource.getModel().getName()) +
                 " where id = ?";
 
+        String tableName = StringFormatter.codeFormat(resource.getModel().getName()) + "_Occurrence_";
+        String sqlOccurrence = "delete from " + tableName + " where idResource = ?";
+
         try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, resource.getId());
-            statement.execute();
+            //Remove resource from the model table
+            PreparedStatement statementResource = connection.prepareStatement(sqlResource);
+            statementResource.setInt(1, resource.getId());
+            statementResource.execute();
+
+            //Remove occurrences related to the resource from the Occurrence table
+            PreparedStatement statementOccurrence = connection.prepareStatement(sqlOccurrence);
+            statementOccurrence.setInt(1, resource.getId());
+            statementOccurrence.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
