@@ -5,7 +5,6 @@ import models.resource.Model;
 import models.resource.OccurrenceType;
 import util.StringFormatter;
 import util.TypeName;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -60,7 +59,7 @@ public class ModelDAO {
             ArrayList<Model> models = new ArrayList<>();
             while (resultSet.next()) {
                 String tableName = resultSet.getString(1);
-                if (tableName.equals("OccurrenceType"))
+                if (tableName.contains("Occurrence_"))
                     continue;
                 models.add(get(tableName));
             }
@@ -73,17 +72,24 @@ public class ModelDAO {
 
     public void add(Model model) {
 
-        String sql = "create table " + StringFormatter.codeFormat(model.getName()) +
+        String modelCodename = StringFormatter.codeFormat(model.getName());
+        String sqlModel = "create table " + modelCodename +
                 "(id int auto_increment, ";
         for (Pair<String, Class> parameter : model.getParameters()) {
-            sql += parameter.getKey() + " ";
-            sql += TypeName.fromJavaClass(parameter.getValue()).toSQLDataType() + " not null, ";
+            sqlModel += parameter.getKey() + " ";
+            sqlModel += TypeName.fromJavaClass(parameter.getValue()).toSQLDataType() + " not null, ";
         }
-        sql += "primary key (id));";
+        sqlModel += "primary key (id));";
 
+        String sqlOccurrence = "create table " + modelCodename + "_Occurrence_ " +
+                "(id int auto_increment, idType int not null, idResource int not null," +
+                "details varchar(100), date date, primary key (id));";
         try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.execute();
+            PreparedStatement statementModel = connection.prepareStatement(sqlModel);
+            statementModel.execute();
+
+            PreparedStatement statementOccurrence = connection.prepareStatement(sqlOccurrence);
+            statementOccurrence.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -99,6 +105,7 @@ public class ModelDAO {
                     continue;
                 String type = resultSet.getString(2);
                 Class typeClass = TypeName.fromSQLDataType(type).toJavaClass();
+
                 if (typeClass != null)
                     parameters.add(new Pair<>(name, typeClass));
             }

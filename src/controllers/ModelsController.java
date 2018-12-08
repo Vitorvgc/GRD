@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import models.resource.Model;
 import util.StringFormatter;
 import util.TableUpdater;
-
 import java.io.IOException;
 
 public class ModelsController implements TableUpdater {
@@ -41,12 +40,11 @@ public class ModelsController implements TableUpdater {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        controller.initialize(this);
+        controller.init(this);
         stage.show();
     }
 
     private void showModel(Model model) {
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/model.fxml"));
             ModelController controller = new ModelController(model);
@@ -62,7 +60,6 @@ public class ModelsController implements TableUpdater {
     }
 
     private void setupTable() {
-
         TableColumn<Model, String> nameColumn = (TableColumn) modelsTable.getColumns().get(0);
         TableColumn<Model, String> parametersColumn = (TableColumn) modelsTable.getColumns().get(1);
         TableColumn<Model, String> occurrencesColumn = (TableColumn) modelsTable.getColumns().get(2);
@@ -82,7 +79,6 @@ public class ModelsController implements TableUpdater {
             });
             return row;
         });
-
         modelsTable.setPlaceholder(new Label("Nenhum modelo registrado"));
         modelsTable.setItems(FXCollections.observableArrayList(new ModelDAO().getAll()));
     }

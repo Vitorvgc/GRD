@@ -3,7 +3,6 @@ package database;
 import models.resource.Model;
 import models.resource.OccurrenceType;
 import util.StringFormatter;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +21,7 @@ public class OccurrenceTypeDAO {
     public void add(OccurrenceType occurrenceType, Model model) {
         checkOccurrenceTypeTable();
 
-        String sql = "insert into OccurrenceType (name, model) values (?, ?)";
+        String sql = "insert into Occurrence_Type (name, model) values (?, ?)";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1,
@@ -36,7 +35,7 @@ public class OccurrenceTypeDAO {
     }
 
     public List<OccurrenceType> getByModelName(String model) throws RuntimeException {
-        String sql = "select name from OccurrenceType where model = ?";
+        String sql = "select name from Occurrence_Type where model = ?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, StringFormatter.codeFormat(model));
@@ -57,23 +56,52 @@ public class OccurrenceTypeDAO {
     public void checkOccurrenceTypeTable() {
         String sql = "select COLUMN_NAME from information_schema.columns " +
                      "where TABLE_SCHEMA = ? and TABLE_NAME = ?";
-
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, "GRD");
-            statement.setString(2, "OccurrenceType");
+            statement.setString(2, "Occurrence_Type");
             ResultSet resultSet = statement.executeQuery();
             if (!resultSet.next()) {
-                String sqlCreate = "create table OccurrenceType " +
-                                   "(id int auto_increment, " +
-                                   "name varchar(45) not null, " +
-                                   "model varchar(45) not null, " +
-                                   "primary key (id));";
+                String sqlCreate = "CREATE TABLE Occurrence_Type (" +
+                        "id INT AUTO_INCREMENT, " +
+                        "name VARCHAR(80) NOT NULL, " +
+                        "model VARCHAR(80) NOT NULL, " +
+                        "PRIMARY KEY (id));";
                 PreparedStatement stm = connection.prepareStatement(sqlCreate);
                 stm.execute();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int getId(OccurrenceType type) {
+        String sql = "select id from Occurrence_Type where name = ?";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, StringFormatter.codeFormat(type.getTitle()));
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                return id;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
+
+    public OccurrenceType getById(int id) throws SQLException {
+        OccurrenceType type = null;
+        String sql = "select name from Occurrence_Type where id = " + id + ";";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultId = statement.executeQuery();
+        while (resultId.next()) {
+            String typeName = resultId.getString("name");
+            type = new OccurrenceType(StringFormatter.userFormat(typeName));
+        }
+        return type;
     }
 }

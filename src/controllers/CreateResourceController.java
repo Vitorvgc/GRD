@@ -39,6 +39,7 @@ public class CreateResourceController {
 
     @FXML
     private void initialize() {
+
         ObservableList<Model> models = FXCollections.observableArrayList(new ModelDAO().getAll());
 
         for (Model model : models)
@@ -89,7 +90,6 @@ public class CreateResourceController {
 
     @FXML
     private void onCreateResourceClicked() {
-
         if (selectedModel == null || data == null)
             return;
 
