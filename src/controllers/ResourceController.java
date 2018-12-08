@@ -1,10 +1,12 @@
 package controllers;
 
+import database.OccurrenceDAO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import models.resource.Resource;
@@ -52,7 +54,7 @@ public class ResourceController {
         setupTitle();
         setupToggleButtons();
         setupInformationTable();
-        setupOcurrencesList();
+        setupOccurrencesList();
     }
 
     @FXML
@@ -114,14 +116,16 @@ public class ResourceController {
         informationTable.setItems(FXCollections.observableArrayList(information));
     }
 
-    private void setupOcurrencesList() {
+    private void setupOccurrencesList() {
 
-        occurrencesList.setPlaceholder(new Label("Nenhuma ocorrência registrada"));
+        Label placeholder = new Label("Nenhuma ocorrência registrada");
+        placeholder.setTextFill(Paint.valueOf("#D5D5D5"));
+        occurrencesList.setPlaceholder(placeholder);
 
-        List<String> occurrences = resource.getOccurrences().stream()
+        List<String> occurrences = new OccurrenceDAO().getAllFrom(resource).stream()
                 .map(occurrence -> occurrence.getType().getTitle())
                 .collect(Collectors.toList());
 
-        occurrencesList.setItems(FXCollections.observableArrayList(new ArrayList<>(occurrences)));
+        occurrencesList.setItems(FXCollections.observableArrayList(occurrences));
     }
 }
