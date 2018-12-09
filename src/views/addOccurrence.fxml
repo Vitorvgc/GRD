@@ -31,9 +31,9 @@
             <Line endX="380.0" />
             <VBox prefHeight="290.0" prefWidth="400.0">
                <children>
-                  <HBox prefHeight="20.0" prefWidth="400.0">
+                  <HBox prefHeight="25.0" prefWidth="400.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="155.0" styleClass="unique-tab" text="Adicionar Ocorrência">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="155.0" styleClass="unique-tab" text="Adicionar Ocorrência">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -72,7 +72,7 @@
                   </VBox>
                </children>
             </VBox>
-            <HBox alignment="CENTER" prefHeight="27.0" spacing="60.0">
+            <HBox alignment="CENTER" prefHeight="27.0" spacing="30.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#didPressOkButton" text="Confirmar" />
                   <Button mnemonicParsing="false" onAction="#didPressCancelButton" text="Cancelar" />

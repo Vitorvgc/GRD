@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
@@ -17,7 +25,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="14.0" layoutY="16.0" prefHeight="353.0" prefWidth="391.0" spacing="15.0">
          <children>
@@ -39,7 +47,7 @@
             <Line endX="380.0" />
             <VBox prefHeight="213.0" prefWidth="391.0">
                <children>
-                  <HBox prefHeight="27.0" prefWidth="299.0">
+                  <HBox prefHeight="27.0" prefWidth="299.0" spacing="4.0">
                      <children>
                         <ToggleButton fx:id="informationToggleButton" mnemonicParsing="false" selected="true" styleClass="info-tab" text="Informações">
                            <toggleGroup>
@@ -49,8 +57,12 @@
                         <ToggleButton fx:id="occurrencesToggleButton" mnemonicParsing="false" styleClass="info-tab" text="Ocorrências" toggleGroup="$contentTabs">
                            <HBox.margin>
                               <Insets left="-5.0" />
-                           </HBox.margin></ToggleButton>
+                           </HBox.margin>
+                        </ToggleButton>
                      </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
                   </HBox>
                   <Pane fx:id="contentContainer" prefHeight="200.0" prefWidth="200.0">
                      <children>

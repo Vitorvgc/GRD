@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="648.0" stylesheets="@css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MPRController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MPRController">
    <children>
-      <Label layoutX="26.0" layoutY="13.0" styleClass="title" text="Medidas de Prevenção e Remediação" />
+      <Label layoutX="26.0" layoutY="13.0" styleClass="title" text="Medidas de Prevenção e Remediação" textFill="#5e5e5e">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
       <TextField layoutX="26.0" layoutY="57.0" prefHeight="27.0" prefWidth="300.0" />
       <Label layoutX="381.0" layoutY="62.0" text="Categorias" />
       <ComboBox layoutX="473.0" layoutY="57.0" prefHeight="27.0" prefWidth="150.0" />

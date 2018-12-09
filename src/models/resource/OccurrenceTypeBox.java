@@ -10,12 +10,14 @@ import javafx.scene.paint.Color;
 public class OccurrenceTypeBox extends LineBox {
 
     public OccurrenceTypeBox(Pane parent) {
+
         super(15);
+
         setAlignment(Pos.CENTER_LEFT);
 
         Label type = new Label("Tipo");
         type.setTextFill(Color.web("#d5d5d5"));
-        field.setPrefWidth(110);
+        field.setPrefWidth(274);
 
         getChildren().addAll(type, field, removeParameterButton);
     }

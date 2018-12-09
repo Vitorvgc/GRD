@@ -20,13 +20,13 @@
             <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
          </padding>
          <content>
-            <VBox fx:id="vb" alignment="CENTER" prefHeight="165.0" prefWidth="400.0" spacing="10.0">
+            <VBox alignment="CENTER" prefHeight="165.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <VBox prefHeight="65.0" prefWidth="380.0" spacing="20.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                            <children>
-                              <Label text="Nome do Modelo" />
+                              <Label text="Nome do Modelo" textFill="#d5d5d5" />
                               <TextField fx:id="nameField" prefHeight="27.0" prefWidth="155.0" />
                            </children>
                         </HBox>
@@ -37,20 +37,22 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="contentVB" prefHeight="200.0" prefWidth="400.0" spacing="20.0">
+                  <VBox fx:id="contentVB" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="400.0" spacing="10.0">
                      <children>
                         <VBox alignment="CENTER" prefHeight="30.0" prefWidth="380.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Parâmetros" textAlignment="CENTER" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="Parâmetros" textAlignment="CENTER" textFill="#d5d5d5" />
                            </children>
                         </VBox>
                         <VBox fx:id="parametersVB" prefHeight="200.0" prefWidth="100.0" spacing="10.0" />
+                        <Button mnemonicParsing="false" onAction="#onAddParameterClicked" text="+" />
                         <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="380.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Ocorrências" textAlignment="CENTER" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" text="Ocorrências" textAlignment="CENTER" textFill="#d5d5d5" />
                            </children>
                         </VBox>
                         <VBox fx:id="occurrencesVB" layoutX="10.0" layoutY="47.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" />
+                        <Button mnemonicParsing="false" onAction="#onAddOccurrenceClicked" text="+" />
                      </children></VBox>
                </children>
                <padding>
@@ -59,10 +61,8 @@
             </VBox>
          </content>
       </ScrollPane>
-      <HBox alignment="CENTER" spacing="20.0">
+      <HBox alignment="CENTER" spacing="50.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#onAddParameterClicked" text="+ Parâmetro" />
-            <Button layoutX="51.0" layoutY="10.0" mnemonicParsing="false" onAction="#onAddOccurrenceClicked" text="+ Ocorrência" />
             <Button mnemonicParsing="false" onAction="#onCreateModelClicked" text="Concluir" />
             <Button mnemonicParsing="false" onAction="#onCancelClicked" text="Cancelar" />
          </children>

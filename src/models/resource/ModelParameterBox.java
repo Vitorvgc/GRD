@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import util.TypeName;
 
@@ -17,7 +16,9 @@ public class ModelParameterBox extends LineBox {
     private boolean editable = true;
 
     public ModelParameterBox() {
+
         super(15);
+
         setAlignment(Pos.CENTER_LEFT);
 
         Label name = new Label("Nome");
@@ -26,7 +27,7 @@ public class ModelParameterBox extends LineBox {
         field.setPrefWidth(110);
 
         Label type = new Label("Tipo");
-        name.setTextFill(Color.web("#d5d5d5"));
+        type.setTextFill(Color.web("#d5d5d5"));
 
         Arrays.stream(TypeName.values()).map(TypeName::toString).forEach(typeName ->
                 typeBox.getItems().add(typeName)
@@ -36,6 +37,7 @@ public class ModelParameterBox extends LineBox {
     }
 
     public ModelParameterBox(boolean editable) {
+
         this();
         this.setEditable(editable);
     }
@@ -69,6 +71,7 @@ public class ModelParameterBox extends LineBox {
     }
 
     public void setTypeBoxValue(String value) {
+
         this.typeBox.getItems().add(value);
         this.typeBox.getSelectionModel().select(value);
     }

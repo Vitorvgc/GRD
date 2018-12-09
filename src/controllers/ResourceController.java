@@ -122,6 +122,7 @@ public class ResourceController {
                 occurrencesList.setVisible(true);
             }
         });
+        contentTabs.selectToggle(informationToggleButton);
     }
 
     private void setupInformationTable() {

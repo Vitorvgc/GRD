@@ -53,13 +53,14 @@ public class AddOccurrenceController {
         String modelName = StringFormatter.userFormat(resource.getModel().getName());
         String resourceName = StringFormatter.userFormat(resource.getName());
         this.resourceModelLabel.setText(modelName);
-        this.resourceModelLabel.setText(resourceName);
+        this.resourceNameLabel.setText(resourceName);
 
         List<OccurrenceType> occurrences = new OccurrenceTypeDAO().getByModelName(modelName);
         for (OccurrenceType type : occurrences) {
             RadioButton button = new RadioButton(StringFormatter.userFormat(type.getTitle()));
             button.setUserData(StringFormatter.codeFormat(type.getTitle()));
             button.setTextFill(Color.valueOf("#D5D5D5"));
+            button.getStyleClass().add("blue-radio-button");
             button.setToggleGroup(group);
             occurrenceTypeVBox.getChildren().add(button);
         }
@@ -102,6 +103,7 @@ public class AddOccurrenceController {
         String month = monthField.getText();
         String year = yearField.getText();
 
+        //TODO: Manage wrong date specified (e.g. 32/12/2018 is converted to 01/01/2019)
         String date_s = year + "-" + month + "-" + day;
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd");
         Date date;

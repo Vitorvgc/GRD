@@ -33,6 +33,7 @@ public class CreateModelController {
     private TableUpdater tableUpdater;
 
     public void init(TableUpdater tableUpdater) {
+
         this.tableUpdater = tableUpdater;
 
         ModelParameterBox nameField = new ModelParameterBox(false);
@@ -44,22 +45,27 @@ public class CreateModelController {
         sectorField.setTextFieldName("Setor");
         sectorField.setTypeBoxValue("texto");
         setupNewLineBox(sectorField, paramBoxes, parametersVB);
+
+        parametersPane.vvalueProperty().bind(contentVB.heightProperty());
     }
 
     @FXML
     private void onAddParameterClicked() {
+
         ModelParameterBox hb = new ModelParameterBox();
         setupNewLineBox(hb, paramBoxes, parametersVB);
     }
 
     @FXML
     private void onAddOccurrenceClicked() {
+
         OccurrenceTypeBox hb = new OccurrenceTypeBox(occurrencesVB);
         setupNewLineBox(hb, typeBoxes, occurrencesVB);
     }
 
     @FXML
     private void onCreateModelClicked() {
+
         String name = nameField.getText().trim();
 
         if (name.isEmpty())
@@ -120,6 +126,7 @@ public class CreateModelController {
     }
 
     private void setupNewLineBox(LineBox box, List<LineBox> array, Pane pane) {
+
         box.getRemoveButton().setOnAction(event -> {
             pane.getChildren().remove(box);
             array.remove(box);

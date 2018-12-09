@@ -45,7 +45,7 @@
             <Line endX="380.0" />
             <VBox prefHeight="213.0" prefWidth="391.0">
                <children>
-                  <HBox prefHeight="27.0" prefWidth="299.0">
+                  <HBox prefHeight="27.0" prefWidth="299.0" spacing="4.0">
                      <children>
                         <ToggleButton fx:id="parametersToggleButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" selected="true" styleClass="info-tab" text="Parâmetros" textAlignment="CENTER">
                            <toggleGroup>

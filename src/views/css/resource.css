@@ -16,9 +16,6 @@
     -fx-view-order: 0;
     -fx-background-color: dark-blue;
     -fx-text-fill: light-blue;
-    -fx-translate-x: 9px;
-    -fx-scale-x: 1.15;
-    -fx-scale-y: 1.15;
 }
 
 .info-table {
@@ -53,4 +50,8 @@
 
 .scroll-pane > .viewport {
    -fx-background-color: transparent;
+}
+
+.blue-radio-button .dot {
+  -fx-mark-color: light-blue;
 }
