@@ -1,5 +1,6 @@
 package database;
 
+import models.resource.Model;
 import models.resource.Occurrence;
 import models.resource.OccurrenceType;
 import models.resource.Resource;
@@ -56,5 +57,24 @@ public class OccurrenceDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public int countFrom(Model model) {
+
+        String tableName = StringFormatter.codeFormat(model.getName()) + "_Occurrence_";
+
+        String sql = "select count(*) from " + tableName + ";";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+            if (result.next())
+                return result.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
     }
 }
