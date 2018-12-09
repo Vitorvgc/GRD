@@ -33,6 +33,7 @@ public class ResourcesController implements TableUpdater {
 
     @FXML
     private void addResource() {
+
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/createResource.fxml"));
         CreateResourceController controller = new CreateResourceController();
@@ -48,6 +49,7 @@ public class ResourcesController implements TableUpdater {
     }
 
     private void showResource(Resource resource) {
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/resource.fxml"));
             ResourceController controller = new ResourceController(resource);
@@ -64,13 +66,15 @@ public class ResourcesController implements TableUpdater {
     }
 
     private void setupTable() {
+
         TableColumn<Resource, String> nameColumn = (TableColumn) resourcesTable.getColumns().get(0);
         TableColumn<Resource, String> modelColumn = (TableColumn) resourcesTable.getColumns().get(1);
         TableColumn<Resource, String> sectionColumn = (TableColumn) resourcesTable.getColumns().get(2);
         TableColumn<Resource, String> occurrencesColumn = (TableColumn) resourcesTable.getColumns().get(3);
 
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        modelColumn.setCellValueFactory(cellData -> new SimpleStringProperty(StringFormatter.userFormat(cellData.getValue().getModel().getName())));
+        modelColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(StringFormatter.userFormat(cellData.getValue().getModel().getName())));
         sectionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSection()));
         occurrencesColumn.setCellValueFactory(cellData -> {
             List<Occurrence> occurrences = new OccurrenceDAO().getAllFrom(cellData.getValue());
@@ -95,6 +99,7 @@ public class ResourcesController implements TableUpdater {
 
     @Override
     public void updateTable() {
+
         List<Resource> resources = new ResourceDAO().getAll();
         resourcesTable.setItems(FXCollections.observableArrayList(resources));
     }

@@ -19,7 +19,6 @@ import models.resource.Model;
 import models.resource.Resource;
 import util.StringFormatter;
 import util.TableUpdater;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +65,9 @@ public class CreateResourceController {
     }
 
     private void updateParametersPane(Model model) {
+
         contentVB.getChildren().clear();
+
         model.getParameters().stream().map(Pair::getKey).forEach(paramName -> {
             data.put(paramName, null);
             HBox hb = new HBox(15);
@@ -90,6 +91,7 @@ public class CreateResourceController {
 
     @FXML
     private void onCreateResourceClicked() {
+
         if (selectedModel == null || data == null)
             return;
 

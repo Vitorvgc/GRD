@@ -4,7 +4,6 @@ import javafx.util.Pair;
 import models.resource.Model;
 import models.resource.Resource;
 import util.StringFormatter;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,9 +24,11 @@ public class ResourceDAO {
         String[] modelParameters = model.getParameters().stream()
                 .map(param -> StringFormatter.codeFormat(param.getKey()))
                 .toArray(String[]::new);
+
         String params = String.join(", ", modelParameters);
 
-        String sql = "select " + params + " from " + StringFormatter.codeFormat(model.getName()) + " where id = ?";
+        String sql = "select " + params + " from " +
+                StringFormatter.codeFormat(model.getName()) + " where id = ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -41,11 +42,9 @@ public class ResourceDAO {
                 resource.setId(id);
                 return resource;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
@@ -55,9 +54,7 @@ public class ResourceDAO {
         List<Model> models = new ModelDAO().getAll();
 
         for (Model model : models) {
-
             String sql = "select id from " + StringFormatter.codeFormat(model.getName());
-
             try {
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet result = statement.executeQuery();
@@ -67,21 +64,21 @@ public class ResourceDAO {
                     Resource resource = get(model, id);
                     resources.add(resource);
                 }
-
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-
         return resources;
     }
 
     public void add(Resource resource) {
 
         Model model = resource.getModel();
+
         String[] modelParameters = model.getParameters().stream()
                 .map(param -> StringFormatter.codeFormat(param.getKey()))
                 .toArray(String[]::new);
+
         String params = String.join(", ", modelParameters);
 
         String values = "(";
@@ -90,14 +87,13 @@ public class ResourceDAO {
             values += (i == modelParameters.length - 1 ? ")" : ", ");
         }
 
-        String sql = "insert into " + StringFormatter.codeFormat(model.getName()) + " (" + params + ") " +
-                "values " + values;
+        String sql = "insert into " + StringFormatter.codeFormat(model.getName()) + " ("
+                + params + ") " + "values " + values;
 
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
 
             for (int i = 0; i < resource.getData().size(); ++i) {
-
                 String name = resource.getData().get(i).getKey();
                 Object value = resource.getData().get(i).getValue();
                 Class type = model.getParameters().stream()
@@ -109,7 +105,6 @@ public class ResourceDAO {
                 else
                     statement.setString(i + 1, value.toString());
             }
-
             statement.execute();
         } catch (SQLException | NumberFormatException e) {
             e.printStackTrace();
@@ -118,12 +113,10 @@ public class ResourceDAO {
 
     public void delete(Resource resource) {
 
-        String sqlResource = "delete from " + StringFormatter.codeFormat(resource.getModel().getName()) +
-                " where id = ?";
-
-        String tableName = StringFormatter.codeFormat(resource.getModel().getName()) + "_Occurrence_";
+        String modelName = StringFormatter.codeFormat(resource.getModel().getName());
+        String sqlResource = "delete from " + modelName + " where id = ?";
+        String tableName = modelName + "_Occurrence_";
         String sqlOccurrence = "delete from " + tableName + " where idResource = ?";
-
         try {
             //Remove resource from the model table
             PreparedStatement statementResource = connection.prepareStatement(sqlResource);
@@ -155,7 +148,6 @@ public class ResourceDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 }

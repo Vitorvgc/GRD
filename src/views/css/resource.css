@@ -44,3 +44,13 @@
     -fx-color: gray-blue;
     -fx-background-color: dark-blue;
 }
+
+.unique-tab {
+    -fx-background-color: dark-blue;
+    -fx-text-fill: light-blue;
+    -fx-background-radius: 5 5 0 0;
+}
+
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
