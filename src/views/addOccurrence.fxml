@@ -44,10 +44,8 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="371.0" spacing="10.0">
                            <children>
-                              <Label style="-fx-text-fill: #D5D5D5;" text="Data (dd/mm/aaaa)" />
-                              <TextField fx:id="dayField" alignment="CENTER" prefHeight="27.0" prefWidth="60.0" promptText="Dia" />
-                              <TextField fx:id="monthField" alignment="CENTER" layoutX="49.0" layoutY="15.0" prefHeight="27.0" prefWidth="60.0" promptText="Mês" />
-                              <TextField fx:id="yearField" alignment="CENTER" layoutX="119.0" layoutY="15.0" prefHeight="27.0" prefWidth="60.0" promptText="Ano" />
+                              <Label style="-fx-text-fill: #D5D5D5;" text="Data" />
+                              <DatePicker fx:id="datePicker" />
                            </children>
                            <padding>
                               <Insets right="10.0" />
