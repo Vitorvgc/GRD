@@ -115,6 +115,8 @@ public class MainController {
     private void onReportTabClicked() {
         setButtonsToNormalState();
         highlight(reportButton, reportLabel, reportIcon, names[3]);
+
+        loadFXML("reports");
     }
 
     @FXML
