@@ -1,6 +1,7 @@
 package util;
 
 public enum TypeName {
+
     TEXT,
     NUMBER;
 
@@ -38,6 +39,7 @@ public enum TypeName {
 
     @Override
     public String toString() {
+
         switch (this) {
             case TEXT:   return "texto";
             case NUMBER: return "número";
@@ -46,6 +48,7 @@ public enum TypeName {
     }
 
     public Class toJavaClass() {
+
         switch (this) {
             case TEXT:   return String.class;
             case NUMBER: return int.class;
@@ -54,6 +57,7 @@ public enum TypeName {
     }
 
     public String toSQLDataType() {
+
         switch (this) {
             case TEXT:   return "varchar(80)";
             case NUMBER: return "int";

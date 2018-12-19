@@ -1,10 +1,8 @@
 package models.resource;
 
 import javafx.util.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class Resource {
@@ -31,9 +29,7 @@ public class Resource {
         this.occurrences = new ArrayList<>();
     }
 
-    public void addOccurrence(Occurrence occurrence) {
-        this.occurrences.add(occurrence);
-    }
+    public void addOccurrence(Occurrence occurrence) { this.occurrences.add(occurrence); }
 
     public void setId(int id) {
         this.id = id;

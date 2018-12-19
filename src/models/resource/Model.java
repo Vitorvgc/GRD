@@ -1,9 +1,7 @@
 package models.resource;
 
 import javafx.util.Pair;
-
 import java.util.List;
-import java.util.Map;
 
 public class Model {
 
@@ -12,6 +10,7 @@ public class Model {
     private List<OccurrenceType> occurrenceTypes;
 
     public Model(String name, List<Pair<String, Class>> parameters, List<OccurrenceType> occurrenceTypes) {
+
         this.name = name;
         this.parameters = parameters;
         this.occurrenceTypes = occurrenceTypes;

@@ -24,12 +24,11 @@ public class ModelsController implements TableUpdater {
     private TableView<Model> modelsTable;
 
     @FXML
-    private void initialize() {
-        setupTable();
-    }
+    private void initialize() { setupTable(); }
 
     @FXML
     private void addModel() {
+
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/createModel.fxml"));
         CreateModelController controller = new CreateModelController ();
@@ -45,6 +44,7 @@ public class ModelsController implements TableUpdater {
     }
 
     private void showModel(Model model) {
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/model.fxml"));
             ModelController controller = new ModelController(model);
@@ -60,13 +60,17 @@ public class ModelsController implements TableUpdater {
     }
 
     private void setupTable() {
+
         TableColumn<Model, String> nameColumn = (TableColumn) modelsTable.getColumns().get(0);
         TableColumn<Model, String> parametersColumn = (TableColumn) modelsTable.getColumns().get(1);
         TableColumn<Model, String> occurrencesColumn = (TableColumn) modelsTable.getColumns().get(2);
 
-        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(StringFormatter.userFormat(cellData.getValue().getName())));
-        parametersColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getParameters().size())));
-        occurrencesColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getOccurrenceTypes().size())));
+        nameColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(StringFormatter.userFormat(cellData.getValue().getName())));
+        parametersColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(String.valueOf(cellData.getValue().getParameters().size())));
+        occurrencesColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(String.valueOf(cellData.getValue().getOccurrenceTypes().size())));
 
         // double click event on row -> show clicked resource
         modelsTable.setRowFactory(tableView -> {
