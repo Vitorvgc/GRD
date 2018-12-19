@@ -59,7 +59,7 @@ public class ModelDAO {
             ArrayList<Model> models = new ArrayList<>();
             while (resultSet.next()) {
                 String tableName = resultSet.getString(1);
-                if (tableName.contains("Occurrence_"))
+                if (tableName.contains("Occurrence_") || tableName.contains("Guideline_"))
                     continue;
                 models.add(get(tableName));
             }
