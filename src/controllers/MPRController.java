@@ -1,56 +1,99 @@
 package controllers;
 
+import database.GuidelineDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.image.Image;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import models.guideline.GuidelineType;
-
+import javafx.stage.Stage;
+import models.guideline.Guideline;
+import util.TableUpdater;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
-public class MPRController {
+public class MPRController implements TableUpdater {
+
+    private GridPane gridpane = new GridPane();
 
     @FXML
-    private GridPane grid;
+    private ScrollPane scrollPane;
+
+    @FXML
+    private Label emptyPaneLabel;
 
     @FXML
     private void initialize() {
-        String[][] titles = new String[3][2];
-        Image[][] images = new Image[3][2];
-        GuidelineType[][] tags = new GuidelineType[3][2];
 
-        titles[0][0] = "Como utilizar corretamente os extintores de …";
-        titles[0][1] = "O que fazer em caso de acidente por queimadu…";
-        titles[1][0] = "Como evitar acidentes durante o trabalho";
-        titles[1][1] = "Como utilizar corretamente os extintores de …";
-        titles[2][0] = "O que fazer em caso de acidente por queimadu…";
+        gridpane.setHgap(15);
+        gridpane.setVgap(10);
+        gridpane.getColumnConstraints().add(new ColumnConstraints(280));
+        gridpane.getColumnConstraints().add(new ColumnConstraints(280));
+        scrollPane.setContent(gridpane);
+        updateTable();
 
-        images[0][0] = new Image(getClass().getResource("../images/mpr/1.png").toExternalForm());
-        images[0][1] = new Image(getClass().getResource("../images/mpr/2.png").toExternalForm());
-        images[1][0] = new Image(getClass().getResource("../images/mpr/3.png").toExternalForm());
-        images[1][1] = new Image(getClass().getResource("../images/mpr/4.png").toExternalForm());
-        images[2][0] = new Image(getClass().getResource("../images/mpr/5.png").toExternalForm());
+//        if (Desktop.isDesktopSupported()) {
+//            try {
+//                File myFile = new File("./src/controllers/Comprovante.pdf");
+//                FileInputStream input = new FileInputStream(myFile);
+//                //Desktop.getDesktop().open(myFile);
+//                Guideline guideline = new Guideline("BOM", myFile, GuidelineType.EMERGENCY);
+//                GuidelineDAO dao = new GuidelineDAO();
+//                dao.add(guideline);
+//            } catch (IOException ex) {
+//                System.out.println("No application registered for PDFs");
+//            }
+//        }
+    }
 
-        tags[0][0] = GuidelineType.EMERGENCY;
-        tags[0][1] = GuidelineType.PREVENTION;
-        tags[1][0] = GuidelineType.EMERGENCY;
-        tags[1][1] = GuidelineType.EMERGENCY;
-        tags[2][0] = GuidelineType.PREVENTION;
+    @FXML
+    private void onAddGuidelineClicked() {
 
-        for (int i = 0; i < 3; ++i)
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/createGuideline.fxml"));
+        CreateGuidelineController controller = new CreateGuidelineController ();
+        loader.setController(controller);
+        stage.setTitle("Adicionar Medida");
+        try {
+            stage.setScene(new Scene(loader.load(), 430, 315));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        controller.init(this);
+        stage.show();
+    }
+
+    @Override
+    public void updateTable() {
+
+        GuidelineDAO dao = new GuidelineDAO();
+        List<Guideline> guidelines = dao.getAll();
+        gridpane.getChildren().clear();
+
+        if (guidelines.size() < 1) {
+            emptyPaneLabel.setVisible(true);
+            return;
+        } else emptyPaneLabel.setVisible(false);
+
+        for (int i = 0; i <= guidelines.size() / 2; ++i)
             for (int j = 0; j < 2; ++j) {
-                if (i == 2 && j == 1) break;
-
+                if (i * 2 + j >= guidelines.size()) break;
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/guideline.fxml"));
                 GuidelineController controller = new GuidelineController();
                 loader.setController(controller);
-
                 try {
-                    grid.add(loader.load(), j, i);
+                    gridpane.add(loader.load(), j, i);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                controller.init(images[i][j], titles[i][j], tags[i][j]);
+                try {
+                    controller.init(guidelines.get(i * 2 + j));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
     }
 }

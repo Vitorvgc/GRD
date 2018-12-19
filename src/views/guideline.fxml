@@ -6,16 +6,12 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox alignment="CENTER" prefHeight="120.0" prefWidth="280.0" spacing="10.0" style="-fx-border-width: 1; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER" prefHeight="90.0" prefWidth="280.0" spacing="15.0" style="-fx-border-width: 1; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="imageView" fitHeight="110.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
-      <VBox alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="150.0" spacing="20.0">
+      <ImageView fx:id="imageView" fitHeight="75.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="150.0" spacing="10.0">
          <children>
-            <Text fx:id="title" strokeType="OUTSIDE" strokeWidth="0.0" text="Como utilizar corretamente os extintores de ..." wrappingWidth="150.0">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Text>
+            <Label fx:id="title" prefHeight="55.0" prefWidth="145.0" text="Label" wrapText="true" />
             <Label fx:id="tag" style="-fx-background-radius: 5; -fx-background-color: red;" text=" Emergência " textFill="WHITE" />
          </children>
       </VBox>
