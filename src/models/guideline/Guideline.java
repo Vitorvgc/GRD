@@ -1,25 +1,40 @@
 package models.guideline;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 public class Guideline {
 
-    private String name, content;
+    private String title;
+    private File content, preview;
     private GuidelineType type;
 
-    public Guideline(String name, String content, GuidelineType type) {
-        this.name = name;
+    public Guideline(String title, File content, File preview, GuidelineType type) {
+
+        this.title = title;
         this.content = content;
+        this.preview = preview;
         this.type = type;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public String getContent() {
+    public File getContent() {
         return content;
     }
 
     public GuidelineType getType() {
         return type;
+    }
+
+    public FileInputStream getContentStream() throws FileNotFoundException {
+        return new FileInputStream(content);
+    }
+
+    public FileInputStream getPreviewStream() throws FileNotFoundException {
+        return new FileInputStream(preview);
     }
 }
