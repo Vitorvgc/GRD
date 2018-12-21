@@ -5,7 +5,6 @@ import com.mysql.cj.jdbc.exceptions.PacketTooBigException;
 import models.guideline.Guideline;
 import models.guideline.GuidelineType;
 import util.AlertHelper;
-import util.StringFormatter;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +30,7 @@ public class GuidelineDAO {
                 "values (?, ?, ?, ?, ?, ?)";
         try {
             statement = connection.prepareStatement(sql);
-            statement.setString(1, StringFormatter.codeFormat(guideline.getTitle()));
+            statement.setString(1, guideline.getTitle());
             statement.setBinaryStream(2, guideline.getContentStream());
             statement.setBinaryStream(3, guideline.getPreviewStream());
             statement.setString(4, guideline.getType().toString());
@@ -57,27 +56,27 @@ public class GuidelineDAO {
     public List<Guideline> getAll() {
 
         checkGuidelineTable();
-
+        int idx = 0;
         String sql = "select * from Guideline_;";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
             ArrayList<Guideline> guidelines = new ArrayList<>();
             while (resultSet.next()) {
-                String title = StringFormatter.userFormat(resultSet.getString("title"));
+                String title = resultSet.getString("title");
                 String type = resultSet.getString("type");
                 String contentExtension = resultSet.getString("contentExtension");
                 String previewExtension = resultSet.getString("previewExtension");
 
                 InputStream contentInput = resultSet.getBinaryStream("content");
-                File contentFile = new File("./src/guidelines/temp." + contentExtension);
+                File contentFile = new File("./src/guidelines/temp" + idx + "." + contentExtension);
                 FileOutputStream contentOutput = new FileOutputStream(contentFile);
                 byte[] contentBuffer = new byte[1024];
                 while (contentInput.read(contentBuffer) > 0)
                     contentOutput.write(contentBuffer);
 
                 InputStream previewInput = resultSet.getBinaryStream("preview");
-                File previewFile = new File("./src/guidelines/tempPreview." + previewExtension);
+                File previewFile = new File("./src/guidelines/tempPreview" + idx + "." + previewExtension);
                 FileOutputStream previewOutput = new FileOutputStream(previewFile);
                 byte[] previewBuffer = new byte[1024];
                 while (previewInput.read(previewBuffer) > 0)
@@ -86,6 +85,7 @@ public class GuidelineDAO {
                 Guideline guideline = new Guideline(title, contentFile, previewFile,
                         GuidelineType.fromSQLDataType(type));
                 guidelines.add(guideline);
+                idx++;
             }
             return guidelines;
 

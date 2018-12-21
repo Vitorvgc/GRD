@@ -13,7 +13,7 @@
             <Font size="22.0" />
          </font></Label>
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="27.0" layoutY="110.0" prefHeight="285.0" prefWidth="595.0" />
-      <Button layoutX="26.0" layoutY="57.0" mnemonicParsing="false" onAction="#onAddGuidelineClicked" text="Adicinar Guideline" />
+      <Button layoutX="26.0" layoutY="57.0" mnemonicParsing="false" onAction="#onAddGuidelineClicked" text="Adicinar medida" />
       <Label fx:id="emptyPaneLabel" layoutX="240.0" layoutY="250.0" text="Nenhuma medida registrada" />
    </children>
 </AnchorPane>
